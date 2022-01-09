@@ -1,22 +1,22 @@
 package gloo.numberlink;
 
 public class Grid {
-    private int nbLines;
+    private int nbRows;
     private int nbColumns;
     private Cell[][] cells;
 
-    public Grid(int nbLines, int nbColumns) {
-        this.nbLines = nbLines;
+    public Grid(int nbRows, int nbColumns) {
+        this.nbRows = nbRows;
         this.nbColumns = nbColumns;
-        this.cells = new Cell[nbLines][nbColumns];
+        this.cells = new Cell[nbRows][nbColumns];
     }
 
     //TODO: remove after asking professor how to get cell
     private int[] getCellCoordinates(Cell cell) {
-        for (int i = 0; i < nbLines; i++) {
-            for (int j = 0; j < nbColumns; j++) {
-                if (cells[i][j] == cell) {
-                    return new int[]{i, j};
+        for (int row = 0; row < nbRows; row++) {
+            for (int col = 0; col < nbColumns; col++) {
+                if (cells[row][col] == cell) {
+                    return new int[]{row, col};
                 }
             }
         }
@@ -28,30 +28,39 @@ public class Grid {
 
         int[] cellCoordinates = this.getCellCoordinates(cell);
 
-        int neighborX = cellCoordinates[0]; // Initialize neighbor coordinates to cell coordinates
-        int neighborY = cellCoordinates[1];
+        int neighborRow = cellCoordinates[0]; // Initialize neighbor coordinates to cell coordinates
+        int neighborCol = cellCoordinates[1];
 
         // Calculate neighbor coordinates based on direction
         switch (direction) {
-            case UP:
-                neighborX -= 1;
-                break;
-            case DOWN:
-                neighborX += 1;
-                break;
-            case LEFT:
-                neighborY -= 1;
-                break;
-            case RIGHT:
-                neighborY += 1;
-                break;
+            case UP -> neighborRow -= 1;
+            case DOWN -> neighborRow += 1;
+            case LEFT -> neighborCol -= 1;
+            case RIGHT -> neighborCol += 1;
         }
 
         // Return the cell itself the neighbor coordinates are invalid
-        if (neighborX < 0 || neighborY < 0 || neighborX >= nbLines || neighborY >= nbColumns) {
+        if (neighborRow < 0 || neighborCol < 0 || neighborRow >= nbRows || neighborCol >= nbColumns) {
             return cell;
         }
-        return cells[neighborX][neighborY];
+        return cells[neighborRow][neighborCol];
     }
 
+
+    /**
+     * Exhaustively goes through the cells and check if every cell has a path.
+     * Returns false immediately when a cell doesn't have a path yet.
+     *
+     * @return   whether the board game is finished.
+     */
+    public boolean isFinished() {
+        for (int row = 0; row < nbRows; row++) {
+            for (int col = 0; col < nbColumns; col++) {
+                if (!cells[row][col].hasPath()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
