@@ -14,7 +14,7 @@ public class Path {
     public boolean advance(Direction dir){
 
         Cell cell = cells[cells.length-1];
-        Cell nextCell = cell.getNeighbor();
+        Cell nextCell = cell.getNeighbor(dir);
         return nextCell.acceptPath(this);
 
     }
