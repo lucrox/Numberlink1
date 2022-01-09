@@ -8,6 +8,12 @@ public class Cell {
     private final int coordX;
     private final int coordY;
 
+<<<<<<< HEAD
+    public boolean hasPath() {
+        return !isAvailable;
+    }
+
+=======
     public Cell(int coordX, int coordY, boolean hasEnd, End end,Grid grid) {
         this.coordX = coordX;
         this.coordY = coordY;
@@ -15,6 +21,7 @@ public class Cell {
         this.grid = grid;
         if (hasEnd) this.end =end;
     }
+>>>>>>> 081d87844502545f9b8275d43f5037f32980fad2
     public Path createNewPath(){
         if(hasEnd){
         Path  path = End.createNewPath();
