@@ -7,7 +7,6 @@ class Grid {
 }
 
 class Cell{
-
     bool taken
     int coodX
     int coordY
@@ -16,12 +15,13 @@ class Cell{
 class Tag {
     int number
 }
+
 class End
 class Path
 class Controller
 class Tag
 
-enum Directions {
+enum Direction {
     UP
     DOWN
     LEFT

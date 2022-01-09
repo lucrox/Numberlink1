@@ -1,0 +1,38 @@
+@startuml
+
+hide footbox
+
+title "Numberlink - Diagramme de séquence"
+
+boundary IHM
+
+IHM -> controller : action(DOWN)
+activate controller
+controller -> p_t3 : advance(DOWN)
+activate p_t3
+p_t3 -> l1c1 : getNeighbor(DOWN)
+activate l1c1
+l1c1 -> grid : getNeighbor(l1c1, DOWN)
+activate grid
+grid -> l1c1 : l2c1
+deactivate grid
+l1c1 -> p_t3 : l2c1
+deactivate l1c1
+p_t3 -> l2c1 : isAvailable(p_t3)
+activate l2c1
+l2c1 -> p_t3 : addCell(l2c1)
+deactivate l2c1
+p_t3 -> controller : True
+controller -> grid : isFinished()
+activate grid
+grid -> l0c0 : hasPath()
+activate l0c0
+l0c0 -> grid : false
+deactivate l0c0
+grid -> controller : false;
+deactivate grid
+controller -> IHM : false
+deactivate controller
+
+
+@enduml

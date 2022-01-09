@@ -1,5 +1,8 @@
 package gloo.numberlink;
 
-public enum Directions {
-    
+public enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
 }
