@@ -23,10 +23,12 @@ public class Cell {
     }
 >>>>>>> 081d87844502545f9b8275d43f5037f32980fad2
     public Path createNewPath(){
+        if(hasEnd){
         Path  path = End.createNewPath();
         path.addCell(this);
         isAvailable = false;
         return path;
+        }
 
     }
     public boolean acceptPath(Path path){
