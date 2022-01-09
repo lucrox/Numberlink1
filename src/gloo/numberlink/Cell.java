@@ -16,6 +16,7 @@ public class Cell {
         this.end = end;
     }
 
+    // TODO : Remove comment : J’ai enlevé l’attribut hasEnd parce que c’est de la redondance de donnée
     public boolean hasEnd() {
         return (this.end != null);
     }
