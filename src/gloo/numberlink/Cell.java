@@ -8,12 +8,12 @@ public class Cell {
     private final int coordX;
     private final int coordY;
 
-<<<<<<< HEAD
+
     public boolean hasPath() {
         return !isAvailable;
     }
 
-=======
+
     public Cell(int coordX, int coordY, boolean hasEnd, End end,Grid grid) {
         this.coordX = coordX;
         this.coordY = coordY;
@@ -21,16 +21,14 @@ public class Cell {
         this.grid = grid;
         if (hasEnd) this.end =end;
     }
->>>>>>> 081d87844502545f9b8275d43f5037f32980fad2
+    //check for an end in grid thanks to getHasEnd before creating the path
     public Path createNewPath(){
-        if(hasEnd){
         Path  path = End.createNewPath();
         path.addCell(this);
         isAvailable = false;
         return path;
-        }
-
     }
+
     public boolean acceptPath(Path path){
         if(isAvailable && hasEnd){
         path.addCell(this);
@@ -43,7 +41,9 @@ public class Cell {
         return grid.getNeighbor(this, dir);
     }
 
-
+    public boolean getHasEnd(){
+        return hasEnd;
+    }
     public int getCoordX() {
         return coordX;
     }
