@@ -10,4 +10,8 @@ public class Grid {
         this.nbColumns = nbColumns;
         this.cells = new Cell[nbLines][nbColumns];
     }
+
+    public Cell getNeighbor(Cell cell, Direction direction) {
+
+    }
 }
