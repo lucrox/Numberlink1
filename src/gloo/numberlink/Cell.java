@@ -16,10 +16,12 @@ public class Cell {
         if (hasEnd) this.end =end;
     }
     public Path createNewPath(){
+        if(hasEnd){
         Path  path = End.createNewPath();
         path.addCell(this);
         isAvailable = false;
         return path;
+        }
 
     }
     public boolean acceptPath(Path path){
