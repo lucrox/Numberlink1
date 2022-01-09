@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Path {
     private ArrayList<Cell> cells;
-    private Tag tag;
+    private final Tag tag;
 
 
     //TODO: remove comment below
