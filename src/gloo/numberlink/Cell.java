@@ -7,6 +7,10 @@ public class Cell {
     private final int coordX;
     private final int coordY;
 
+    public boolean hasPath() {
+        return !isAvailable;
+    }
+
     public Path createNewPath(){
         Path  path = End.createNewPath();
         path.addCell(this);
