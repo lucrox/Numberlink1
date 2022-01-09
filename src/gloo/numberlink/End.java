@@ -6,4 +6,9 @@ public class End {
     public End(Tag tag){
         this.tag = tag;
     }
+
+    public static Path createNewPath() {
+        return Tag.createNewPath();
+
+    }
 }
