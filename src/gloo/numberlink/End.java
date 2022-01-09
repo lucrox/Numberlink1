@@ -7,11 +7,8 @@ public class End {
         this.tag = tag;
     }
 
-    public static Path createNewPath() {
-        return Tag.createNewPath();
-
+    public Path createNewPath() {
+        return this.tag.createNewPath();
     }
-
-
 
 }

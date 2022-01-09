@@ -2,7 +2,7 @@ package gloo.numberlink;
 
 public class Tag {
 
-    public  static Path createNewPath(){
-        return new Path();
+    public Path createNewPath(){
+        return new Path(this);
     }
 }
