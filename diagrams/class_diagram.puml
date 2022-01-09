@@ -1,0 +1,46 @@
+@startuml
+title "Numberlink - Diagramme de classes"
+
+class Grid {
+  int nbLines
+  int nbColumns
+}
+
+class Cell{
+
+    bool taken
+    int coodX
+    int coordY
+    }
+
+class Tag {
+    int number
+}
+class End
+class Path
+class Controller
+class Tag
+
+enum Directions {
+    UP
+    DOWN
+    LEFT
+    RIGHT
+}
+
+Controller "1" --- "1" Grid
+
+Grid "1" --- "1..\ncells" Cell
+
+Path "0..1" *--- "1" Tag
+
+Cell "1" --- "0..1" End
+
+Path"1" --- "1..2"End
+
+Path "1" --- "1...*\ncells" Cell
+
+
+End "2" *--- "1" Tag
+
+@enduml
