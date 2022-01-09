@@ -3,53 +3,48 @@ package gloo.numberlink;
 public class Cell {
     private End end;
     private boolean isAvailable = true;
-    private boolean hasEnd;
     private Grid grid;
-    private final int coordX;
-    private final int coordY;
+//    private final int coordX;
+//    private final int coordY;
 
+    public Cell(Grid grid) {
+        this.grid = grid;
+    }
+
+    public Cell(Grid grid, End end) {
+        this.grid = grid;
+        this.end = end;
+    }
+
+    public boolean hasEnd() {
+        return (this.end != null);
+    }
 
     public boolean hasPath() {
         return !isAvailable;
     }
 
-
-    public Cell(int coordX, int coordY, boolean hasEnd, End end,Grid grid) {
-        this.coordX = coordX;
-        this.coordY = coordY;
-        this.hasEnd = hasEnd;
-        this.grid = grid;
-        if (hasEnd) this.end =end;
-    }
-    //check for an end in grid thanks to getHasEnd before creating the path
-    public Path createNewPath(){
-        Path  path = end.createNewPath();
+    public Path createNewPath() {
+        if (!this.hasEnd()) {
+            return null;
+        }
+        Path path = end.createNewPath();
         path.addCell(this);
         isAvailable = false;
         return path;
     }
 
-    public boolean acceptPath(Path path){
-        if(isAvailable && hasEnd){
-            path.addCell(this);
-            isAvailable = false;
-            return true;}
-        else return false;
+    public boolean acceptPath(Path path) {
+        if (!isAvailable || !this.hasEnd()) {
+            return false;
+        }
+        path.addCell(this);
+        isAvailable = false;
+        return true;
     }
 
-    public Cell getNeighbor(Direction dir){
+    public Cell getNeighbor(Direction dir) {
         return grid.getNeighbor(this, dir);
-    }
-
-    public boolean getHasEnd(){
-        return hasEnd;
-    }
-    public int getCoordX() {
-        return coordX;
-    }
-
-    public int getCoordY() {
-        return coordY;
     }
 
 }
