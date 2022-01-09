@@ -63,4 +63,8 @@ public class Grid {
         }
         return true;
     }
+
+    public Path createNewPath(int row, int col) {
+        return cells[row][col].createNewPath();
+    }
 }
