@@ -1,10 +1,13 @@
 package tests;
 
-import gloo.numberlink.Grid;
+import gloo.numberlink.*;
+
+import java.util.Locale;
+import java.util.Scanner;
 
 public class GridTests {
     public static void main(String[] args) {
-        testPrintGrid();
+//        testNewPath();
     }
 
     public static void testPrintGrid() {
@@ -12,9 +15,36 @@ public class GridTests {
         grid.printGrid();
     }
 
-    public static void testNewPath() {
-        Grid grid = new Grid();
-        grid.printGrid();
-        System.out.println(grid.createNewPath(0, 1));
-    }
+//    public static void testNewPath() {
+//        Grid grid = new Grid();
+//        Scanner sc = new Scanner(System.in);
+//        Path path = grid.createNewPath(0, 1);
+//        while (true) {
+//            String input = sc.nextLine().toLowerCase();
+//            if (input == "quit") {
+//                System.out.println("Thank you for playing this game. Good bye.");
+//                break;
+//            }
+//            Direction dir = null;
+//            switch (input) {
+//                case "up":
+//                    dir = Direction.UP;
+//                    break;
+//                case "down":
+//                    dir = Direction.DOWN;
+//                    break;
+//                case "left":
+//                    dir = Direction.LEFT;
+//                    break;
+//                case "right":
+//                    dir = Direction.RIGHT;
+//                    break;
+//            }
+//            if (dir == null) {
+//                System.out.println("Invalid input, please try again:");
+//                break;
+//            }
+//
+//        }
+//    }
 }

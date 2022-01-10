@@ -39,4 +39,14 @@ public class Path {
         return nextCell.acceptPath(this);
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Path with following cells: \n");
+        for (Cell cell : this.cells) {
+            sb.append(cell + "\n");
+        }
+        sb.append("End of path");
+        return sb.toString();
+    }
+
 }

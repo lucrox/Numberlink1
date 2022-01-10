@@ -4,7 +4,7 @@ public class Cell {
     private End end;
     private boolean isAvailable = true;
     private Grid grid;
-    private Path currPath;
+    private Path path;
 //    private final int coordX;
 //    private final int coordY;
 
@@ -44,10 +44,17 @@ public class Cell {
         if (this.hasEnd()) {
             return this.end.getTag().toString();
         } else if (this.hasPath()) {
-            return this.currPath.getTag().toString();
+            return this.path.getTag().toString();
         } else {
             return "x";
         }
+    }
+
+    public String toString() {
+        int[] coordinates = grid.getCellCoordinates(this);
+        int row = coordinates[0];
+        int col = coordinates[1];
+        return String.format("Cell( row: %d, column: %d, label: %s)", row, col, getLabel());
     }
 
     public Path createNewPath() {
@@ -56,7 +63,7 @@ public class Cell {
         }
         Path path = end.createNewPath();
         path.addCell(this);
-        this.currPath = path;
+        this.path = path;
         isAvailable = false;
         return path;
     }
@@ -66,7 +73,7 @@ public class Cell {
             return false;
         }
         path.addCell(this);
-        this.currPath = path;
+        this.path = path;
         isAvailable = false;
         return true;
     }
