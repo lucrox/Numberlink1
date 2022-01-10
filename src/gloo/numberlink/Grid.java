@@ -94,7 +94,7 @@ public class Grid {
         return cells[neighborRow][neighborCol];
     }
 
-    private boolean isCoordinatesValid(int row, int col) {
+    public boolean isCoordinatesValid(int row, int col) {
         return row >= 0 && col >= 0 && row < nbRows && col < nbCols;
     }
 

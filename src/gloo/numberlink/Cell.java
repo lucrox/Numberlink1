@@ -44,10 +44,15 @@ public class Cell {
         if (this.hasEnd()) {
             return this.end.getTag().toString();
         } else if (this.hasPath()) {
-            return this.path.getTag().toString();
+            return this.getTag().toString();
         } else {
             return "x";
         }
+    }
+
+    public Tag getTag() {
+        if (this.hasEnd()) return this.end.getTag();
+        return this.path.getTag();
     }
 
     public String toString() {
@@ -69,8 +74,13 @@ public class Cell {
     }
 
     public boolean acceptPath(Path path) {
-        if (!isAvailable || !this.hasEnd()) {
+        if (!isAvailable || path.contains(this)) {
             return false;
+        }
+        if (this.hasEnd()) {
+            if (path.getTag() != this.getTag()) {
+                return false;
+            }
         }
         path.addCell(this);
         this.path = path;
