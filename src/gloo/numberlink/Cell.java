@@ -4,13 +4,25 @@ public class Cell {
     private End end;
     private boolean isAvailable = true;
     private Grid grid;
+    private Path currPath;
 //    private final int coordX;
 //    private final int coordY;
 
+    /**
+     * Constructor for initially free cell
+     *
+     * @param grid the grid that contains the cell
+     */
     public Cell(Grid grid) {
         this.grid = grid;
     }
 
+    /**
+     * Constructor for initially numbered cell
+     *
+     * @param grid the grid that contains the cell
+     * @param end  the end of the cell
+     */
     public Cell(Grid grid, End end) {
         this.grid = grid;
         this.end = end;
@@ -21,8 +33,21 @@ public class Cell {
         return (this.end != null);
     }
 
+    /**
+     * @return whether the cell is currently part of a path
+     */
     public boolean hasPath() {
         return !isAvailable;
+    }
+
+    public String getLabel() {
+        if (this.hasEnd()) {
+            return this.end.getTag().toString();
+        } else if (this.hasPath()) {
+            return this.currPath.getTag().toString();
+        } else {
+            return "x";
+        }
     }
 
     public Path createNewPath() {
@@ -31,6 +56,7 @@ public class Cell {
         }
         Path path = end.createNewPath();
         path.addCell(this);
+        this.currPath = path;
         isAvailable = false;
         return path;
     }
@@ -40,6 +66,7 @@ public class Cell {
             return false;
         }
         path.addCell(this);
+        this.currPath = path;
         isAvailable = false;
         return true;
     }

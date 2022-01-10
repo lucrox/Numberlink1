@@ -19,7 +19,7 @@ public class Grid {
         this.nbRows = 9;
         this.nbColumns = 9;
 
-        Tag[] tags = new Tag[5]; //Hard coded
+        Tag[] tags = new Tag[6]; //Hard coded
 
         for(int row = 0; row < nbRows; row++) {
             for (int col = 0; col < nbColumns; col++) {
@@ -37,8 +37,25 @@ public class Grid {
     }
 
     public void printGrid() {
-        StringBuilder sb = new StringBuilder();
-
+        for (int row = 0; row < 2 * nbRows + 4 ; row++) {
+            System.out.print("-");
+        }
+        System.out.println();
+        System.out.print("   ");
+        for (int row = 0; row < nbRows; row++) {
+            System.out.print(Integer.toString(row) + " ");
+        }
+        System.out.println();
+        for (int row = 0; row < nbRows; row++) {
+            System.out.print(Integer.toString(row) + " ");
+            for (int col = 0; col < nbColumns; col++) {
+                System.out.print("|" + cells[row][col].getLabel());
+            }
+            System.out.println("|");
+        }
+        for (int row = 0; row < 2 * nbRows + 4; row++) {
+            System.out.print("-");
+        }
     }
 
 

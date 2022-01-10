@@ -8,8 +8,8 @@ public class Tag {
         this.label = label;
     }
 
-    public int getLabel() {
-        return label;
+    public String toString() {
+        return Integer.toString(this.label);
     }
 
     public Path createNewPath(){

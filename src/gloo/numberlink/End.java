@@ -7,6 +7,10 @@ public class End {
         this.tag = tag;
     }
 
+    public Tag getTag() {
+        return tag;
+    }
+
     public Path createNewPath() {
         return this.tag.createNewPath();
     }

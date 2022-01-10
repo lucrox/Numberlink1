@@ -22,6 +22,10 @@ public class Path {
         this.tag = tag;
     }
 
+    public Tag getTag() {
+        return tag;
+    }
+
     public void addCell(Cell cell){
         cells.add(cell);
     }
