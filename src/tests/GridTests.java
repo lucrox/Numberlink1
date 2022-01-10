@@ -2,8 +2,6 @@ package tests;
 
 import gloo.numberlink.*;
 
-import java.util.Locale;
-import java.util.Scanner;
 
 public class GridTests {
     public static void main(String[] args) {

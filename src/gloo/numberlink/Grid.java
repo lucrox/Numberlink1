@@ -1,9 +1,9 @@
 package gloo.numberlink;
 
 public class Grid {
-    private int nbRows;
-    private int nbCols;
-    private Cell[][] cells;
+    private final int nbRows;
+    private final int nbCols;
+    private final Cell[][] cells;
 
     //TODO: Make an actual random generation of grid
     public Grid(int nbRows, int nbColumns) {
@@ -43,11 +43,11 @@ public class Grid {
         System.out.println();
         System.out.print("   ");
         for (int row = 0; row < nbRows; row++) {
-            System.out.print(Integer.toString(row) + " ");
+            System.out.print(row + " ");
         }
         System.out.println();
         for (int row = 0; row < nbRows; row++) {
-            System.out.print(Integer.toString(row) + " ");
+            System.out.print(row + " ");
             for (int col = 0; col < nbCols; col++) {
                 System.out.print("|" + cells[row][col].getLabel());
             }
@@ -71,7 +71,7 @@ public class Grid {
         return new int[]{-1, -1};
     }
 
-    //TODO: Ask professor how grid can get the neighbor without exhalstif search
+    //TODO: Ask professor how grid can get the neighbor without exhaustive search
     public Cell getNeighbor(Cell cell, Direction direction) {
 
         int[] cellCoordinates = this.getCellCoordinates(cell);

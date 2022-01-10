@@ -3,7 +3,7 @@ package gloo.numberlink;
 public class Cell {
     private End end;
     private boolean isAvailable = true;
-    private Grid grid;
+    private final Grid grid;
     private Path path;
 //    private final int coordX;
 //    private final int coordY;

@@ -1,7 +1,7 @@
 package gloo.numberlink;
 
 public class Controller {
-    private Grid grid;
+    private final Grid grid;
     private Path currPath;
 
     public Controller(int nbRows, int nbCols) {
