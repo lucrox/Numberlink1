@@ -5,11 +5,42 @@ public class Grid {
     private int nbColumns;
     private Cell[][] cells;
 
+    //TODO: Make an actual random generation of grid
     public Grid(int nbRows, int nbColumns) {
         this.nbRows = nbRows;
         this.nbColumns = nbColumns;
         this.cells = new Cell[nbRows][nbColumns];
     }
+
+    // For testing purposes
+    public Grid() {
+        int[][] puzzle = PuzzleGenerator.generate();
+        this.cells = new Cell[9][9];
+        this.nbRows = 9;
+        this.nbColumns = 9;
+
+        Tag[] tags = new Tag[5]; //Hard coded
+
+        for(int row = 0; row < nbRows; row++) {
+            for (int col = 0; col < nbColumns; col++) {
+                if (puzzle[row][col] == -1) {
+                    cells[row][col] = new Cell(this);
+                } else {
+                    int tagLabel = puzzle[row][col];
+                    if (tags[tagLabel] == null) {
+                        tags[tagLabel] = new Tag(tagLabel);
+                    }
+                    cells[row][col] = new Cell(this, new End(tags[tagLabel]));
+                }
+            }
+        }
+    }
+
+    public void printGrid() {
+        StringBuilder sb = new StringBuilder();
+
+    }
+
 
     //TODO: remove after asking professor how to get cell
     private int[] getCellCoordinates(Cell cell) {

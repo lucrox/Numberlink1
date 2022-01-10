@@ -26,9 +26,12 @@ public class Path {
         cells.add(cell);
     }
 
+    private Cell getLastCell() {
+        return cells.get(cells.size() - 1);
+    }
+
     public boolean advance(Direction dir){
-        Cell cell = cells.get(cells.size() -1);
-        Cell nextCell = cell.getNeighbor(dir);
+        Cell nextCell = this.getLastCell().getNeighbor(dir);
         return nextCell.acceptPath(this);
     }
 
