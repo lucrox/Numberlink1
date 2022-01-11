@@ -14,7 +14,7 @@ public class Grid {
 
     // For testing purposes
     public Grid() {
-        int[][] puzzle = PuzzleGenerator.generate();
+        int[][] puzzle = PuzzleGenerator.generate(7);
         this.cells = new Cell[9][9];
         this.nbRows = 9;
         this.nbCols = 9;
