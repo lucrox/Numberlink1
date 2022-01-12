@@ -14,13 +14,15 @@ public class Grid {
 
     // For testing purposes
     public Grid() {
-        int[][] puzzle = PuzzleGenerator.generate(7);
+
         this.cells = new Cell[9][9];
         this.nbRows = 9;
         this.nbCols = 9;
+        int[][] puzzle = PuzzleGenerator.generate(nbRows,nbCols);
 
-        Tag[] tags = new Tag[6]; //Hard coded
-
+        Tag[] tags = new Tag[10]; //Hard coded
+        System.out.println(puzzle.length);
+        System.out.println(puzzle[0].length);
         for (int row = 0; row < nbRows; row++) {
             for (int col = 0; col < nbCols; col++) {
                 if (puzzle[row][col] == -1) {

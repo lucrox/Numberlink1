@@ -17,11 +17,24 @@ public class PuzzleGenerator {
 
         return zero;
     }
+    public static int[][] remplissageMoinsUn(int[][] puzzle){
 
+        for (int l= 0;l< puzzle.length;l++) {
+            for (int c=0;c<puzzle[0].length;c++) {
+                if(puzzle[l][c]==0){
+                    puzzle[l][c] =-1;
+
+                }
+            }
+
+        }
+
+        return puzzle;
+    }
 
 
     //TODO: make puzzle generator generate random puzzles
-    public static int[][] generate(int dimension ) {
+    public static int[][] generate(int nbRows,int nbColumns ) {
         /*return new int[][]{
                 {0, 1, 2, -1, -1, -1, 3, -1, -1},
                 {-1, -1, -1, -1, 4, -1, 0, -1, -1},
@@ -32,9 +45,9 @@ public class PuzzleGenerator {
                 {-1, -1, -1, 2, -1, -1, 4, -1, -1},
                 {-1, -1, -1, -1, -1, -1, -1, -1, -1},
                 {-1, -1, -1, -1, -1, -1, 3, -1, -1}
-        };*/
-        int[][] puzzle = new int[dimension][dimension];
-        int[][] puzzleReturn = new int[dimension][dimension];
+        };}}*/
+        int[][] puzzle = new int[nbRows][nbColumns];
+        int[][] puzzleReturn = new int[nbRows][nbColumns];
         int numeroChemin = 1;
 
         boolean pasFini = true;
@@ -50,8 +63,8 @@ public class PuzzleGenerator {
 
 
             while(pasTrouve){
-                colCourante = (int) (Math.random()*dimension);
-                linCourante = (int) (Math.random()*dimension);
+                colCourante = (int) (Math.random()*nbColumns);
+                linCourante = (int) (Math.random()*nbRows);
                 pasTrouve = puzzle[linCourante][colCourante] !=0;
             }
             int linDepart = linCourante;
@@ -84,7 +97,7 @@ public class PuzzleGenerator {
                         }
                     case 2:
                         linCourante++;
-                        if(linCourante>=dimension || puzzle[linCourante][colCourante]!=0){
+                        if(linCourante>=nbRows || puzzle[linCourante][colCourante]!=0){
                             linCourante--;
                             if(essais>10){ cheminEnCours = false;}
                         }
@@ -93,7 +106,7 @@ public class PuzzleGenerator {
                         }
                     case 3:
                         colCourante++;
-                        if(colCourante>=dimension|| puzzle[linCourante][colCourante]!=0){
+                        if(colCourante>=nbColumns|| puzzle[linCourante][colCourante]!=0){
                             colCourante--;
                             if(essais>10){ cheminEnCours = false;}
                         }
@@ -114,7 +127,8 @@ public class PuzzleGenerator {
 
 
 
-        if(checkZero(puzzle)){puzzle = generate(dimension);}
+        if(checkZero(puzzle)){puzzle = generate(nbRows,nbColumns);}
+        puzzleReturn = remplissageMoinsUn(puzzleReturn);
         return puzzleReturn;
         }
 
