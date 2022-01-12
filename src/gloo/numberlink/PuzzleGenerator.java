@@ -3,11 +3,23 @@ package gloo.numberlink;
 import java.util.ArrayList;
 
 public class PuzzleGenerator {
-    public static void ajoutCase(int tag, int[] cases , int[][] tab){
-        tab[cases[0]][cases[1]] = tag;
+    public static boolean checkZero(int[][] puzzle){
+        boolean zero = false;
+        for (int l= 0;l< puzzle.length;l++) {
+            for (int c=0;c<puzzle[0].length;c++) {
+                if(puzzle[l][c]==0){
+                    zero = true;
+                    break;
+                }
+            }
 
+        }
 
+        return zero;
     }
+
+
+
     //TODO: make puzzle generator generate random puzzles
     public static int[][] generate(int dimension ) {
         /*return new int[][]{
@@ -22,144 +34,88 @@ public class PuzzleGenerator {
                 {-1, -1, -1, -1, -1, -1, 3, -1, -1}
         };*/
         int[][] puzzle = new int[dimension][dimension];
-        boolean[][] puzzleUnavailable = new boolean[dimension][dimension];
-        ArrayList<Integer> longueursChemins = new ArrayList<Integer>();
+        int[][] puzzleReturn = new int[dimension][dimension];
+        int numeroChemin = 1;
+
         boolean pasFini = true;
-        int somme = 0;
-        int numeroChemin =1;
-        while(pasFini) {
-            System.out.println("somme"+somme);
-            System.out.println("longueurschemins " + longueursChemins.toString());
 
-            somme = 0;
-            for(int i = 0; i<longueursChemins.size();i++) {
-            somme += longueursChemins.get(i);
-            }
-            pasFini = (somme <= dimension*dimension);
 
-            int[] caseDepart = new int[2];
+        while(pasFini){
+
+
+
             boolean pasTrouve = true;
+            int colCourante = 0;
+            int linCourante= 0;
+
+
             while(pasTrouve){
+                colCourante = (int) (Math.random()*dimension);
+                linCourante = (int) (Math.random()*dimension);
+                pasTrouve = puzzle[linCourante][colCourante] !=0;
+            }
+            int linDepart = linCourante;
+            int colDepart = colCourante;
+            puzzle[linCourante][colCourante] = numeroChemin;
 
-                int randCol = (int) (Math.random()*dimension);
-                int randLin = (int) (Math.random()*dimension);
-                if(!puzzleUnavailable[randLin][randCol]){
-                    caseDepart[0] = randLin;
-                    caseDepart[1] = randCol;
-                    puzzleUnavailable[randLin][randCol]= false;
-                    pasTrouve = false;
-
+            boolean cheminEnCours = true;
+            int essais = 0;
+            while (cheminEnCours) {
+                essais++;
+                int dir = (int) (Math.random()*4);
+                switch (dir){
+                    case 0:
+                        linCourante--;
+                        if(linCourante<0 || puzzle[linCourante][colCourante]!=0){
+                            linCourante++;
+                            if(essais>10){ cheminEnCours = false;}
+                        }
+                        else{
+                            puzzle[linCourante][colCourante] = numeroChemin;
+                        }
+                    case 1:
+                        colCourante--;
+                        if(colCourante<0 || puzzle[linCourante][colCourante]!=0){
+                            colCourante++;
+                            if(essais>10){ cheminEnCours = false;}
+                        }
+                        else{
+                            puzzle[linCourante][colCourante] = numeroChemin;
+                        }
+                    case 2:
+                        linCourante++;
+                        if(linCourante>=dimension || puzzle[linCourante][colCourante]!=0){
+                            linCourante--;
+                            if(essais>10){ cheminEnCours = false;}
+                        }
+                        else{
+                            puzzle[linCourante][colCourante] = numeroChemin;
+                        }
+                    case 3:
+                        colCourante++;
+                        if(colCourante>=dimension|| puzzle[linCourante][colCourante]!=0){
+                            colCourante--;
+                            if(essais>10){ cheminEnCours = false;}
+                        }
+                        else{
+                            puzzle[linCourante][colCourante] = numeroChemin;
+                        }
                 }
 
             }
-
-
-            boolean cheminPasFini = true;
-            int longueurChemin = 1;
-            int l = caseDepart[0];
-            int c = caseDepart[1];
-            System.out.println("case depart "+ l+c);
-            int[]cheminCol = new int[10];
-            int[]cheminlin = new int[10];
-            cheminCol[0] = c;
-            cheminlin[0] = l;
-            puzzleUnavailable[l][c]=true;
-            while(cheminPasFini){
-
-                int dir = (int) (Math.random()*4);
-                System.out.println("case courante:" + l+c);
-
-
-                switch(dir){
-                    case 0 : if((l-1)>=0 && !puzzleUnavailable[l-1][c]){
-
-
-                        l--;
-                        System.out.println(l);
-                        cheminlin[longueurChemin] = l;
-                        cheminCol[longueurChemin] = c;
-                        puzzleUnavailable[l][c] = true;
-                        longueurChemin += 1;}
-
-                        else {
-
-                            longueursChemins.add(longueurChemin);
-                            numeroChemin++;
-                            cheminPasFini = false;
-
-                    }
-                    case 1 : if((c-1)>=0 && !puzzleUnavailable[l][c-1]){
-
-
-                        c--;
-                        System.out.println(c);
-                        cheminlin[longueurChemin] = l;
-                        cheminCol[longueurChemin] = c;
-                        puzzleUnavailable[l][c] = true;
-                        longueurChemin += 1;}
-
-                    else {
-
-                        longueursChemins.add(longueurChemin);
-                        numeroChemin++;
-                        cheminPasFini = false;
-
-                    }
-                    case 2 : if((l+1)<dimension && !puzzleUnavailable[l+1][c]){
-
-
-                        l++;
-                        System.out.println(l);
-                        cheminlin[longueurChemin] = l;
-                        cheminCol[longueurChemin] = c;
-                        puzzleUnavailable[l][c] = true;
-                        longueurChemin += 1;
-                    }
-
-                    else {
-
-                        longueursChemins.add(longueurChemin);
-                        numeroChemin++;
-                        cheminPasFini = false;
-
-                    }
-                    case 3 : if((c+1)<dimension && !puzzleUnavailable[l][c+1]){
-
-
-                        c++;
-                        System.out.println(c);
-                        cheminlin[longueurChemin] =l;
-                        cheminCol[longueurChemin] = c;
-                        puzzleUnavailable[l][c] = true;
-                        longueurChemin += 1;}
-
-                    else {
-
-                        longueursChemins.add(longueurChemin);
-                        numeroChemin++;
-                        cheminPasFini = false;}
-                    }
-
-                    }
-
-
-            for(int i = 0; i<longueurChemin;i++) {
-                System.out.println("lin: " + cheminlin[i]+ "col: "+cheminCol[i]);
-                puzzle[cheminlin[i]][cheminCol[i]] = numeroChemin;
-
-            }
-
-
-
+            if(linCourante == linDepart && colCourante==colDepart){break;}
+            puzzleReturn[linCourante][colCourante]=numeroChemin;
+            puzzleReturn[linDepart][colDepart] = numeroChemin;
+            numeroChemin++;
+            pasFini = checkZero(puzzle);
 
         }
-        for (boolean[] tab: puzzleUnavailable) {
-            for (boolean s: tab) {
-                System.out.print(s + "\t");
-            }
-            System.out.println("\n");
-        }
-        return puzzle;
+
+
+
+
+        if(checkZero(puzzle)){puzzle = generate(dimension);}
+        return puzzleReturn;
         }
 
 
