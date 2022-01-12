@@ -51,6 +51,7 @@ public class PuzzleGenerator {
         int numeroChemin = 1;
 
         boolean pasFini = true;
+        boolean grilleInvalide = false;
 
 
         while(pasFini){
@@ -70,10 +71,11 @@ public class PuzzleGenerator {
             int linDepart = linCourante;
             int colDepart = colCourante;
             puzzle[linCourante][colCourante] = numeroChemin;
-
+            int compteur=1;
             boolean cheminEnCours = true;
             int essais = 0;
             while (cheminEnCours) {
+
                 essais++;
                 int dir = (int) (Math.random()*4);
                 switch (dir){
@@ -85,6 +87,7 @@ public class PuzzleGenerator {
                         }
                         else{
                             puzzle[linCourante][colCourante] = numeroChemin;
+                            compteur++;
                         }
                     case 1:
                         colCourante--;
@@ -94,6 +97,7 @@ public class PuzzleGenerator {
                         }
                         else{
                             puzzle[linCourante][colCourante] = numeroChemin;
+                            compteur++;
                         }
                     case 2:
                         linCourante++;
@@ -103,6 +107,7 @@ public class PuzzleGenerator {
                         }
                         else{
                             puzzle[linCourante][colCourante] = numeroChemin;
+                            compteur++;
                         }
                     case 3:
                         colCourante++;
@@ -112,11 +117,13 @@ public class PuzzleGenerator {
                         }
                         else{
                             puzzle[linCourante][colCourante] = numeroChemin;
+                            compteur++;
                         }
                 }
 
             }
-            if(linCourante == linDepart && colCourante==colDepart){break;}
+            if(compteur<3){grilleInvalide=true;}
+            if((linCourante == linDepart && colCourante==colDepart)){break;}
             puzzleReturn[linCourante][colCourante]=numeroChemin;
             puzzleReturn[linDepart][colDepart] = numeroChemin;
             numeroChemin++;
@@ -127,7 +134,7 @@ public class PuzzleGenerator {
 
 
 
-        if(checkZero(puzzle)){puzzle = generate(nbRows,nbColumns);}
+        if(checkZero(puzzle)||grilleInvalide){puzzle = generate(nbRows,nbColumns);}
         puzzleReturn = remplissageMoinsUn(puzzleReturn);
         return puzzleReturn;
         }
