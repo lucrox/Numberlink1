@@ -23,11 +23,11 @@ public class CommandlineInterface {
                 System.out.println("Please select a cell: ");
                 System.out.print("row (type QUIT to quit): ");
                 String userInput = scanner.nextLine();
-                if (userInput.toUpperCase().equals("QUIT")) break;
+                if (userInput.equalsIgnoreCase("QUIT")) break;
                 int row = Integer.parseInt(userInput);
                 System.out.print("column (type QUIT to quit): ");
                 userInput = scanner.nextLine();
-                if (userInput.toUpperCase().equals("QUIT")) break;
+                if (userInput.equalsIgnoreCase("QUIT")) break;
                 int col = Integer.parseInt(userInput);
                 if (!controller.isCoordinatesValid(row, col)) {
                     System.out.println("Invalid coordinates, please try again");

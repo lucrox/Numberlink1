@@ -1,8 +1,7 @@
 package gloo.numberlink;
 
 public class Grid {
-    private final int nbRows;
-    private final int nbCols;
+    private final int nbRows, nbCols;
     private final Cell[][] cells;
 
     //TODO: Make an actual random generation of grid
