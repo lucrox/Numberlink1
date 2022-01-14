@@ -3,15 +3,10 @@ package gloo.numberlink;
 import java.util.ArrayList;
 
 public class Path {
-    //TODO: Remove comment below
-    // J’ai changé cells du type tableau en type ArrayList, en gros c’est équivalent aux listes Python
-    // Comme ça on n’a pas à recréer un nouveau tableau et recopier tous les éléments
     private ArrayList<Cell> cells;
     private final Tag tag;
 
 
-    //TODO: remove comment below
-    // Path a besoin de connaître son tag, j’ai rajouté this au paramètre de Path()
     public Path(Tag tag) {
         this.cells = new ArrayList<>();
         this.tag = tag;
