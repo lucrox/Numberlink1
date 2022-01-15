@@ -5,11 +5,9 @@ public class Cell {
     private boolean isAvailable = true;
     private final Grid grid;
     private Path path;
-//    private final int coordX;
-//    private final int coordY;
 
     /**
-     * Constructor for initially free cell
+     * Constructor for initially inoccupied
      *
      * @param grid the grid that contains the cell
      */
@@ -21,14 +19,14 @@ public class Cell {
      * Constructor for initially numbered cell
      *
      * @param grid the grid that contains the cell
-     * @param end  the end of the cell
+     * @param end  the end of the cell which contains the tag information
      */
     public Cell(Grid grid, End end) {
         this.grid = grid;
         this.end = end;
     }
 
-    // TODO : Remove comment : J’ai enlevé l’attribut hasEnd parce que c’est de la redondance de donnée
+
     public boolean hasEnd() {
         return (this.end != null);
     }
@@ -40,13 +38,18 @@ public class Cell {
         return !isAvailable;
     }
 
+    /**
+     * Returns a label string for representing the cell visually in the command line interface.
+     *
+     * @return the label
+     */
     public String getLabel() {
-        if (this.hasEnd()) {
-            return this.end.getTag().toString();
-        } else if (this.hasPath()) {
-            return this.getTag().toString();
+        if (hasEnd()) { // get label from the end
+            return end.getTag().toString();
+        } else if (hasPath()) { // get label from the path
+            return path.toString();
         } else {
-            return "x";
+            return "x"; // get default label for unoccupied x
         }
     }
 
@@ -55,6 +58,8 @@ public class Cell {
         return this.path.getTag();
     }
 
+
+    // Returns the coordinates and the label of the cell for debugging purposes
     public String toString() {
         int[] coordinates = grid.getCellCoordinates(this);
         int row = coordinates[0];
@@ -62,28 +67,38 @@ public class Cell {
         return String.format("Cell( row: %d, column: %d, label: %s)", row, col, getLabel());
     }
 
+    /**
+     * Creates a new path starting from the current cell.
+     *
+     * @return the newly created path
+     */
     public Path createNewPath() {
-        if (!this.hasEnd()) {
-            return null;
-        }
-        Path path = end.createNewPath();
+        if (!hasEnd()) return null; // a new path can only start from an end cell
+        path = end.createNewPath();
         path.addCell(this);
-        this.path = path;
         isAvailable = false;
         return path;
     }
 
+    /**
+     * Checks if the conditions of adding the cell to the path are satisfied, and adds the cell to the path if they are.
+     *
+     * @param path
+     * @return whether the cell is added to the path
+     */
     public boolean acceptPath(Path path) {
-        if (!isAvailable || path.contains(this)) {
+        // A cell can only belong to one path
+        if (!isAvailable) {
             return false;
         }
+        // A path can't contain cells with different tags
         if (this.hasEnd()) {
             if (path.getTag() != this.getTag()) {
                 return false;
             }
         }
-        path.addCell(this);
         this.path = path;
+        path.addCell(this);
         isAvailable = false;
         return true;
     }

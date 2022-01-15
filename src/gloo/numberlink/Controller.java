@@ -20,8 +20,18 @@ public class Controller {
         grid.printGrid();
     }
 
-    public void selectCell(int row, int col) {
-        currPath = grid.createNewPath(row, col);
+    /**
+     * Starts a new path from the coordinates.
+     *
+     * @param row the row index
+     * @param col the column index
+     * @return whether a new path is successfully created
+     */
+    public boolean selectCell(int row, int col) {
+        Path newPath = grid.createNewPath(row, col); // null if the grid failed to create a new path
+        if (newPath == null) return false;
+        currPath = newPath;
+        return true;
     }
 
     /**

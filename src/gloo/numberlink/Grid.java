@@ -60,7 +60,12 @@ public class Grid {
     }
 
 
-    //TODO: remove after asking professor how to get cell
+    /**
+     * Scans the cells matrix to find the coordinates of the cell.
+     *
+     * @param cell the cell for which we want to get coordinates.
+     * @return coordinates of the cell
+     */
     public int[] getCellCoordinates(Cell cell) {
         for (int row = 0; row < nbRows; row++) {
             for (int col = 0; col < nbCols; col++) {
@@ -72,7 +77,14 @@ public class Grid {
         return new int[]{-1, -1};
     }
 
-    //TODO: Ask professor how grid can get the neighbor without exhaustive search
+    /**
+     * Does an exhaustive search in the cells matrix to find the coordinates of the original cell, then return the
+     * neighbor cell according to the direction.
+     *
+     * @param cell the cell we want to get neighbor from.
+     * @param direction the direction of the neighbor with respect to the cell
+     * @return the neighboring cell in the specified direction
+     */
     public Cell getNeighbor(Cell cell, Direction direction) {
 
         int[] cellCoordinates = this.getCellCoordinates(cell);
@@ -95,17 +107,30 @@ public class Grid {
         return cells[neighborRow][neighborCol];
     }
 
+    /**
+     * Determines whether the row and column coordinates are valid indices of the cells matrix.
+     * @param row the row index
+     * @param col the column index
+     * @return whether the coordinates are valid
+     */
     public boolean isCoordinatesValid(int row, int col) {
         return row >= 0 && col >= 0 && row < nbRows && col < nbCols;
     }
 
-    //TODO: differentiate invalid coordinates and cell not available
+    /**
+     * Determines whether we can start a new path from the chosen coordinates, and returns the newly created path.
+     * The method returns null if the new path isn't created successfully.
+     *
+     * @param row the row index
+     * @param col the column index
+     * @return the newly created path
+     */
     public Path createNewPath(int row, int col) {
         return isCoordinatesValid(row, col) ? cells[row][col].createNewPath() : null;
     }
 
     /**
-     * Exhaustively goes through the cells and check if every cell has a path.
+     * Scans cells matrix to check if every cell has a path.
      * Returns false immediately when a cell doesn't have a path yet.
      *
      * @return whether the board game is finished.
