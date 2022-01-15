@@ -1,4 +1,4 @@
-package tests;
+package gloo.numberlink.tests;
 
 import gloo.numberlink.model.Grid;
 
