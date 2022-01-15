@@ -3,6 +3,11 @@ package gloo.numberlink;
 import java.util.ArrayList;
 
 public class PuzzleGenerator {
+
+
+
+
+
     public static boolean checkZero(int[][] puzzle){
         boolean zero = false;
         for (int l= 0;l< puzzle.length;l++) {
