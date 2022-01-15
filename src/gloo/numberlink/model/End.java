@@ -1,4 +1,4 @@
-package gloo.numberlink;
+package gloo.numberlink.model;
 
 public class End {
     private Tag tag;

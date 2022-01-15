@@ -1,4 +1,4 @@
-package gloo.numberlink;
+package gloo.numberlink.model;
 
 import java.util.ArrayList;
 

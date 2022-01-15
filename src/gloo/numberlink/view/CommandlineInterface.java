@@ -1,4 +1,7 @@
-package gloo.numberlink;
+package gloo.numberlink.view;
+
+import gloo.numberlink.control.Controller;
+import gloo.numberlink.model.Direction;
 
 import java.util.Scanner;
 

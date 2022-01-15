@@ -1,4 +1,4 @@
-package gloo.numberlink;
+package gloo.numberlink.model;
 
 public class Grid {
     private final int nbRows, nbCols;

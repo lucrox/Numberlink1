@@ -1,6 +1,6 @@
 package tests;
 
-import gloo.numberlink.*;
+import gloo.numberlink.model.Grid;
 
 
 public class GridTests {

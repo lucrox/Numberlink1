@@ -1,4 +1,8 @@
-package gloo.numberlink;
+package gloo.numberlink.control;
+
+import gloo.numberlink.model.Direction;
+import gloo.numberlink.model.Grid;
+import gloo.numberlink.model.Path;
 
 public class Controller {
     private final Grid grid;
