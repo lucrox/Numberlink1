@@ -4,23 +4,17 @@ import java.util.ArrayList;
 
 public class PuzzleGenerator {
 
-
-
-
-
-    public static boolean checkZero(int[][] puzzle){
-        boolean zero = false;
+    
+    public static boolean hasZero(int[][] puzzle){
         for (int l= 0;l< puzzle.length;l++) {
             for (int c=0;c<puzzle[0].length;c++) {
                 if(puzzle[l][c]==0){
-                    zero = true;
-                    break;
+                    return true;
                 }
             }
 
         }
-
-        return zero;
+        return false;
     }
     public static int[][] remplissageMoinsUn(int[][] puzzle){
 
@@ -132,14 +126,14 @@ public class PuzzleGenerator {
             puzzleReturn[linCourante][colCourante]=numeroChemin;
             puzzleReturn[linDepart][colDepart] = numeroChemin;
             numeroChemin++;
-            pasFini = checkZero(puzzle);
+            pasFini = hasZero(puzzle);
 
         }
 
 
 
 
-        if(checkZero(puzzle)||grilleInvalide){puzzle = generate(nbRows,nbColumns);}
+        if(hasZero(puzzle)||grilleInvalide){puzzle = generate(nbRows,nbColumns);}
         puzzleReturn = remplissageMoinsUn(puzzleReturn);
         return puzzleReturn;
         }
