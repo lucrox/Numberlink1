@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PuzzleGenerator {
 
-    
+
     public static boolean hasZero(int[][] puzzle){
         for (int l= 0;l< puzzle.length;l++) {
             for (int c=0;c<puzzle[0].length;c++) {
