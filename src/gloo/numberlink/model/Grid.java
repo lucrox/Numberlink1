@@ -1,5 +1,7 @@
 package gloo.numberlink.model;
 
+import gloo.numberlink.utils.PuzzleGenerator;
+
 public class Grid {
     private final int nbRows, nbCols;
     private final Cell[][] cells;

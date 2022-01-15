@@ -1,6 +1,8 @@
 package gloo.numberlink.model;
 
 
+import gloo.numberlink.utils.PuzzleGenerator;
+
 public class Main {
     public static void main(String[] args) {
 
