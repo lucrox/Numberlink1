@@ -55,6 +55,9 @@ public class Path {
         return nextCell.acceptPath(this);
     }
 
+    public String getLabel() {
+        return tag.getLabel();
+    }
 
     // for debugging
     public String toString() {

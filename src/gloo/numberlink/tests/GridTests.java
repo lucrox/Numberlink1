@@ -8,10 +8,10 @@ public class GridTests {
 //        testNewPath();
     }
 
-    public static void testPrintGrid() {
-        Grid grid = new Grid();
-        grid.printGrid();
-    }
+//    public static void testPrintGrid() {
+//        Grid grid = new Grid();
+//        grid.printGrid();
+//    }
 
 //    public static void testNewPath() {
 //        Grid grid = new Grid();

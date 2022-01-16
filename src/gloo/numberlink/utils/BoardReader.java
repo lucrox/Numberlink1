@@ -1,14 +1,15 @@
 package gloo.numberlink.utils;
 
 import gloo.numberlink.exception.InvalidParametersException;
+import gloo.numberlink.model.Cell;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class BoardReader {
-    private static final int minBoardLength = 5; // hardcoded minimum board length
-    private static final int maxBoardLength = 12; // hardcoded maximum board length
+    public static final int minBoardLength = 5; // hardcoded minimum board length
+    public static final int maxBoardLength = 12; // hardcoded maximum board length
     private static final String boardFolderPath = "boards"; // path of the boards
 
     // checks if the board length is valid
@@ -36,7 +37,23 @@ public class BoardReader {
             ObjectInputStream iis = new ObjectInputStream(fis);
             return (int[][]) iis.readObject();
         } catch (Exception e) {
-            throw new Exception("Error reading the board.");
+            throw new Exception("Error reading files.");
         }
+    }
+
+    /**
+     * Finds the number of labels present on the board.
+     *
+     * @param board the game board
+     * @return the number of labels
+     */
+    public static int getLabelCount(int[][] board) {
+        int currMax = 0;
+        for (int[] row: board) {
+            for (int val: row) {
+                currMax = Math.max(currMax, val);
+            }
+        }
+        return currMax;
     }
 }

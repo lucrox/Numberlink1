@@ -1,28 +1,52 @@
 package gloo.numberlink.view;
 
 import gloo.numberlink.control.Controller;
+import gloo.numberlink.exception.InvalidParametersException;
 import gloo.numberlink.model.Direction;
+import gloo.numberlink.utils.BoardReader;
 
 import java.util.Scanner;
 
 public class CommandlineInterface {
-    public static Controller controller = new Controller(9, 9);
+    private final Controller controller;
+    private final Scanner scanner; // for user input
 
-    public static void main(String[] args) {
-        runGame();
+    public CommandlineInterface() {
+        scanner = new Scanner(System.in);
+        int boardSize = inputBoardSize();
+        controller = new Controller(boardSize);
     }
 
+    /**
+     * Asks user for board size and handles exceptions
+     *
+     * @return board size
+     */
+    private int inputBoardSize() {
+        System.out.println("Choose a board size from " + BoardReader.minBoardLength + " to " + BoardReader.maxBoardLength + ".");
+        try {
+            int boardSize = Integer.parseInt(scanner.nextLine());
+            return boardSize;
+        } catch(Exception ex) {
+            System.out.println("Invalid input, please try again");
+            return inputBoardSize();
+        }
+    }
 
-    private static void printGrid() {
+    /**
+     * Prints the current game-board.
+     */
+    private void printGrid() {
         controller.printGrid();
     }
 
-    private static void runGame() {
+    public void runGame() {
         System.out.println("Welcome to NumberLink.");
-        Scanner scanner = new Scanner(System.in);
+        long startTime = System.currentTimeMillis();
         while (true) {
             printGrid();
             if (!controller.hasCurrentPath()) {
+                // When we don't have a current path, select a cell to start a new path
                 System.out.println("Please select a cell: ");
                 System.out.print("row (type QUIT to quit): ");
                 String userInput = scanner.nextLine();
@@ -38,6 +62,7 @@ public class CommandlineInterface {
                 }
                 controller.selectCell(row, col);
             } else {
+                // Choose the next cell
                 System.out.println("Please select your next move:");
                 System.out.println("Choose from: UP, DOWN, LEFT, RIGHT, QUIT");
                 String userInput = scanner.nextLine().toUpperCase();
@@ -55,10 +80,15 @@ public class CommandlineInterface {
                     System.out.println("Invalid direction, please try again");
                     continue;
                 }
-                controller.action(dir);
+                boolean isGameFinished = controller.action(dir);
+                if (isGameFinished) {
+                    long timeElapsedSeconds = ((System.currentTimeMillis() - startTime) / 1000L);
+                    System.out.println("Congratulations, you won !");
+                    System.out.println("Total time spent on the puzzle: " + timeElapsedSeconds + " seconds.");
+                    break;
+                }
             }
         }
         System.out.println("Thanks for playing the game. Goodbye!");
-        scanner.close();
     }
 }

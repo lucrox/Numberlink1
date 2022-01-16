@@ -1,45 +1,84 @@
 package gloo.numberlink.model;
 
+import gloo.numberlink.exception.InvalidParametersException;
+import gloo.numberlink.utils.BoardReader;
 import gloo.numberlink.utils.PuzzleGenerator;
 
 public class Grid {
     private final int nbRows, nbCols;
     private final Cell[][] cells;
 
-    //TODO: Make an actual random generation of grid
-    public Grid(int nbRows, int nbColumns) {
-        this.nbRows = nbRows;
-        this.nbCols = nbColumns;
-        this.cells = new Cell[nbRows][nbColumns];
-    }
+    // TODO: handle exception and remove the dirty fix
+    public Grid(int size) {
+        nbRows = size;
+        nbCols = size;
+        cells = new Cell[nbRows][nbCols];
 
-    // For testing purposes
-    public Grid() {
+        // Read and deserialize the board file into integer matrix
+        int[][] board;
+        try {
+            board = BoardReader.readBoard(size);
+        } catch (Exception ex) {
+            // dirty fix
+            System.out.println("Problem reading the board.");
+            board = new int[][]{{-1}};
+        }
 
-        this.cells = new Cell[9][9];
-        this.nbRows = 9;
-        this.nbCols = 9;
-        int[][] puzzle = PuzzleGenerator.generate(nbRows,nbCols);
+        // Initialize an array of tags
+        int labelCount = BoardReader.getLabelCount(board);
+        Tag[] tags = new Tag[labelCount];
+        for (int label = 1; label <= labelCount; label++) {
+            tags[label - 1] = new Tag(label);
+        }
 
-        Tag[] tags = new Tag[10]; //Hard coded
-        System.out.println(puzzle.length);
-        System.out.println(puzzle[0].length);
+        // Fill the cell matrix
         for (int row = 0; row < nbRows; row++) {
             for (int col = 0; col < nbCols; col++) {
-                if (puzzle[row][col] == -1) {
-                    cells[row][col] = new Cell(this);
+                if (board[row][col] == 0) { // 0 represents empty cell
+                    cells[row][col] = new Cell(this); // empty cell
                 } else {
-                    int tagLabel = puzzle[row][col];
-                    if (tags[tagLabel] == null) {
-                        tags[tagLabel] = new Tag(tagLabel);
-                    }
-                    cells[row][col] = new Cell(this, new End(tags[tagLabel]));
+                    int label = board[row][col];
+                    cells[row][col] = new Cell(this, new End(tags[label - 1])); // numbered cell
                 }
             }
         }
     }
 
+//    public Grid(int nbRows, int nbColumns) {
+//        this.nbRows = nbRows;
+//        this.nbCols = nbColumns;
+//        this.cells = new Cell[nbRows][nbColumns];
+//    }
+
+//     For testing purposes
+//    public Grid() {
+//
+//        this.cells = new Cell[9][9];
+//        this.nbRows = 9;
+//        this.nbCols = 9;
+//        int[][] puzzle = PuzzleGenerator.generate(nbRows,nbCols);
+//
+//        Tag[] tags = new Tag[10]; //Hard coded
+//        System.out.println(puzzle.length);
+//        System.out.println(puzzle[0].length);
+//        for (int row = 0; row < nbRows; row++) {
+//            for (int col = 0; col < nbCols; col++) {
+//                if (puzzle[row][col] == -1) {
+//                    cells[row][col] = new Cell(this);
+//                } else {
+//                    int tagLabel = puzzle[row][col];
+//                    if (tags[tagLabel] == null) {
+//                        tags[tagLabel] = new Tag(tagLabel);
+//                    }
+//                    cells[row][col] = new Cell(this, new End(tags[tagLabel]));
+//                }
+//            }
+//        }
+//    }
+
     public void printGrid() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         for (int row = 0; row < 2 * nbRows + 4; row++) {
             System.out.print("-");
         }
@@ -83,7 +122,7 @@ public class Grid {
      * Does an exhaustive search in the cells matrix to find the coordinates of the original cell, then return the
      * neighbor cell according to the direction.
      *
-     * @param cell the cell we want to get neighbor from.
+     * @param cell      the cell we want to get neighbor from.
      * @param direction the direction of the neighbor with respect to the cell
      * @return the neighboring cell in the specified direction
      */
@@ -111,6 +150,7 @@ public class Grid {
 
     /**
      * Determines whether the row and column coordinates are valid indices of the cells matrix.
+     *
      * @param row the row index
      * @param col the column index
      * @return whether the coordinates are valid

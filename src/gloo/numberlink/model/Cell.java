@@ -7,7 +7,7 @@ public class Cell {
     private Path path;
 
     /**
-     * Constructor for initially inoccupied
+     * Constructor for initially unoccupied
      *
      * @param grid the grid that contains the cell
      */
@@ -47,7 +47,7 @@ public class Cell {
         if (hasEnd()) { // get label from the end
             return end.getTag().toString();
         } else if (hasPath()) { // get label from the path
-            return path.toString();
+            return path.getTag().toString();
         } else {
             return "x"; // get default label for unoccupied x
         }

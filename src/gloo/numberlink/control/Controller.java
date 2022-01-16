@@ -8,9 +8,13 @@ public class Controller {
     private final Grid grid;
     private Path currPath;
 
-    public Controller(int nbRows, int nbCols) {
-        this.grid = new Grid();
+    public Controller(int size){
+        grid = new Grid(size);
     }
+
+//    public Controller(int nbRows, int nbCols) {
+//        this.grid = new Grid();
+//    }
 
     public boolean hasCurrentPath() {
         return (currPath != null);

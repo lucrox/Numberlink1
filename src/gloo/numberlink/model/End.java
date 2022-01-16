@@ -11,6 +11,10 @@ public class End {
         return tag;
     }
 
+    public String getLabel() {
+        return tag.getLabel();
+    }
+
     public Path createNewPath() {
         return this.tag.createNewPath();
     }
