@@ -6,6 +6,11 @@ import gloo.numberlink.model.Path;
 
 public class Controller {
     private final Grid grid;
+
+    /**
+     * currPath indicates the current path the player is advancing on. If currPath is null, the player must select
+     * a new cell to start a new path.
+     */
     private Path currPath;
 
     public Controller(int size){

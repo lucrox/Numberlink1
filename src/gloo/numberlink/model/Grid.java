@@ -6,6 +6,10 @@ import gloo.numberlink.utils.PuzzleGenerator;
 
 public class Grid {
     private final int nbRows, nbCols;
+
+    /**
+     * A matrix of cell objects is stored in the grid.
+     */
     private final Cell[][] cells;
 
     // TODO: handle exception and remove the dirty fix

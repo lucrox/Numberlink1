@@ -1,7 +1,7 @@
 package gloo.numberlink.model;
 
 public class End {
-    private Tag tag;
+    private final Tag tag;
 
     public End(Tag tag){
         this.tag = tag;

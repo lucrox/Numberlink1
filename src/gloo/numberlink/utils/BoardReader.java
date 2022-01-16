@@ -8,9 +8,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class BoardReader {
+    /**
+     * A reasonable board length is at least 5.
+     */
     public static final int minBoardLength = 5; // hardcoded minimum board length
+
+    /**
+     * The largest board stored in the board directory has a size of 12 by 12.
+     */
     public static final int maxBoardLength = 12; // hardcoded maximum board length
-    private static final String boardFolderPath = "boards"; // path of the boards
+    private static final String boardFolderPath = "boards"; // hardcoded path of the boards in the project
 
     // checks if the board length is valid
     public static boolean isBoardLengthValid(int boardLength) {

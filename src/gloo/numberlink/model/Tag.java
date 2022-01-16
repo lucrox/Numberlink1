@@ -2,6 +2,9 @@ package gloo.numberlink.model;
 
 public class Tag {
 
+    /**
+     * A label is uniquely identified by its label, ranging from 1 to the number of tags in the puzzle.
+     */
     private final int label;
 
     public Tag(int label) {

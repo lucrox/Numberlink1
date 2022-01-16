@@ -1,7 +1,9 @@
 package gloo.numberlink.utils;
 
-import java.util.ArrayList;
-
+/**
+ * This class is currently unused since the boards are pre-created and stored in the board folder.
+ * We are considering generating the game board in run-time.
+ */
 public class PuzzleGenerator {
 
 

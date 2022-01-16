@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Path {
+    /**
+     * cells stores the cell objects that are part of the current path, stored in the order in which they are added
+     * to the path.
+     */
     private final List<Cell> cells;
+
+    /**
+     * Every cell of the path have the same tag, hence the tag is initialized during instantiation.
+     */
     private final Tag tag;
 
     public Path(Tag tag) {

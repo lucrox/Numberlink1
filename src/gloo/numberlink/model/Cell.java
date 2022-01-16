@@ -1,7 +1,14 @@
 package gloo.numberlink.model;
 
 public class Cell {
+    /**
+     * When the cell is initially non-empty, it has an end object associated with it.
+     */
     private End end;
+
+    /**
+     * A cell is available when it is not currently part of a path.
+     */
     private boolean isAvailable = true;
     private final Grid grid;
     private Path path;
@@ -39,17 +46,17 @@ public class Cell {
     }
 
     /**
-     * Returns a label string for representing the cell visually in the command line interface.
+     * Returns a label string for representing the cell visually in the user interface.
      *
      * @return the label
      */
     public String getLabel() {
         if (hasEnd()) { // get label from the end
-            return end.getTag().toString();
+            return end.getLabel();
         } else if (hasPath()) { // get label from the path
-            return path.getTag().toString();
+            return path.getLabel();
         } else {
-            return "x"; // get default label for unoccupied x
+            return " "; // get default label for unoccupied x
         }
     }
 
@@ -83,7 +90,7 @@ public class Cell {
     /**
      * Checks if the conditions of adding the cell to the path are satisfied, and adds the cell to the path if they are.
      *
-     * @param path
+     * @param path the path that requests the cell to join
      * @return whether the cell is added to the path
      */
     public boolean acceptPath(Path path) {
