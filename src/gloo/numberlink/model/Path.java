@@ -16,7 +16,7 @@ public class Path {
     private final Tag tag;
 
     public Path(Tag tag) {
-        this.cells = new ArrayList<>();
+        this.cells = new ArrayList<>(); // For automatic resizing of the list and O(1) time accessing elements.
         this.tag = tag;
     }
 
