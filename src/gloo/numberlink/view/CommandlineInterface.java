@@ -1,7 +1,6 @@
 package gloo.numberlink.view;
 
 import gloo.numberlink.control.Controller;
-import gloo.numberlink.exception.InvalidParametersException;
 import gloo.numberlink.model.Direction;
 import gloo.numberlink.utils.BoardReader;
 import gloo.numberlink.utils.ConsoleColors;
@@ -18,9 +17,6 @@ public class CommandlineInterface {
         controller = new Controller(boardSize);
     }
 
-    private String[][] getLabels() {
-        return controller.getLabels();
-    }
 
     /**
      * Asks user for board size and handles exceptions
@@ -30,38 +26,88 @@ public class CommandlineInterface {
     private int inputBoardSize() {
         System.out.println("Choose a board size from " + BoardReader.minBoardLength + " to " + BoardReader.maxBoardLength + ".");
         try {
-            int boardSize = Integer.parseInt(scanner.nextLine());
-            return boardSize;
-        } catch(Exception ex) {
+            return Integer.parseInt(scanner.nextLine()); // board size
+        } catch (Exception ex) {
             System.out.println("Invalid input, please try again");
             return inputBoardSize();
         }
     }
 
     /**
-     * Prints the current game-board with highlighting.
+     * Prints the grid for the command line interface.
+     *
+     * @param highlightCol column of the cell to be highlighted
+     * @param highlightRow row of the cell to be highlighted
      */
-    private void printGrid(int highlightRow, int highlightCol) {
-        controller.printGrid(highlightRow, highlightCol);
+    public void printGrid(String[][] labels, int highlightRow, int highlightCol) {
+
+        int nbRows = labels.length;
+        int nbCols = labels[0].length;
+
+        // Reset console color
+        ConsoleColors.setColor(ConsoleColors.RESET);
+
+        // Column indices
+        System.out.println();
+        System.out.print("      ");
+        for (int row = 0; row < nbRows; row++) {
+            System.out.print(row + (row >= 10 ? "    " : "     "));
+        }
+
+        // Upper border
+        System.out.println();
+        System.out.print("  ");
+        for (int col = 0; col < nbCols; col++) {
+            System.out.print(col == 0 ? " ┏━━━━━" : "┯━━━━━");
+        }
+        System.out.println("┓");
+
+
+        for (int row = 0; row < nbRows; row++) {
+            System.out.print(row + (row >= 10 ? "" : " "));
+            for (int col = 0; col < nbCols; col++) {
+                System.out.print((col == 0 ? " ┃ " : "│ "));
+                if (row == highlightRow && col == highlightCol) {
+                    ConsoleColors.setColor(ConsoleColors.YELLOW_BACKGROUND);
+                }
+                System.out.print(" " + labels[row][col] + " ");
+                if (row == highlightRow && col == highlightCol) {
+                    ConsoleColors.setColor(ConsoleColors.RESET);
+                }
+                System.out.print(" ");
+            }
+            System.out.println("┃");
+
+            System.out.print("  ");
+            for (int col = 0; col < nbCols; col++) {
+                if (row == nbRows - 1) {
+                    System.out.print(col == 0 ? " ┗━━━━━" : "┷━━━━━");
+                } else {
+                    System.out.print(col == 0 ? " ┠─────" : "┼─────");
+                }
+            }
+            System.out.println(row == nbCols - 1 ? "┛" : "┨");
+        }
     }
 
-    private void printGrid() {
-        printGrid(-1, -1);
+    public void printGrid(String[][] labels) {
+        printGrid(labels, -1, -1);
     }
-
 
 
     public void runGame() {
         System.out.println("Welcome to NumberLink.");
         long startTime = System.currentTimeMillis();
         while (true) {
+            // Retrieve the labels of the cells for printing
+            String[][] labels = controller.getLabels();
             if (controller.hasCurrentPath()) {
                 int[] lastCellCoordinates = controller.getLastCellCoordinates();
                 int lastCellRow = lastCellCoordinates[0];
                 int lastCellColumn = lastCellCoordinates[1];
-                printGrid(lastCellRow, lastCellColumn);
+                printGrid(labels, lastCellRow, lastCellColumn);
             } else {
-                printGrid();
+                printGrid(labels);
             }
             if (!controller.hasCurrentPath()) {
                 // When we don't have a current path, select a cell to start a new path

@@ -36,17 +36,6 @@ public class Controller {
         return grid.isCoordinatesValid(row, col);
     }
 
-    /**
-     * Prints the grid in the command line interface with highlight.
-     */
-    public void printGrid(int highlightRow, int highlightCol) {
-        grid.printGrid(highlightRow, highlightCol);
-    }
-
-    public void printGrid() {
-        printGrid(-1, -1);
-    }
-
     public String[][] getLabels() {
         return grid.getLabels();
     }
