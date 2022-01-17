@@ -65,8 +65,9 @@ public class Cell {
         return this.path.getTag();
     }
 
-
-    // Returns the coordinates and the label of the cell for debugging purposes
+    /**
+     * Returns a string representation of the coordinates and the label of the cell for debugging purposes.
+     */
     public String toString() {
         int[] coordinates = grid.getCellCoordinates(this);
         int row = coordinates[0];
@@ -94,11 +95,11 @@ public class Cell {
      * @return whether the cell is added to the path
      */
     public boolean acceptPath(Path path) {
-        // A cell can only belong to one path
+        /* A cell can only belong to one path */
         if (!isAvailable) {
             return false;
         }
-        // A path can't contain cells with different tags
+        /* A path can't contain cells with different tags */
         if (this.hasEnd()) {
             if (path.getTag() != this.getTag()) {
                 return false;

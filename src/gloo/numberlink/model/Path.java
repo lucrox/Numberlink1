@@ -5,8 +5,7 @@ import java.util.List;
 
 public class Path {
     /**
-     * cells stores the cell objects that are part of the current path, stored in the order in which they are added
-     * to the path.
+     * cells stores the cell objects that are part of the path, in the order in which they are added.
      */
     private final List<Cell> cells;
 
@@ -38,7 +37,7 @@ public class Path {
      *
      * @return last added cell
      */
-    private Cell getLastCell() {
+    public Cell getLastCell() {
         return cells.get(cells.size() - 1);
     }
 
@@ -56,10 +55,10 @@ public class Path {
      * Advances the path in the indicated direction with respect to the previous cell.
      *
      * @param dir direction of advancing
-     * @return whether a new cell has been added to the path
+     * @return whether a new cell has been successfully added to the path
      */
     public boolean advance(Direction dir) {
-        Cell nextCell = this.getLastCell().getNeighbor(dir);
+        Cell nextCell = getLastCell().getNeighbor(dir);
         return nextCell.acceptPath(this);
     }
 
@@ -67,7 +66,12 @@ public class Path {
         return tag.getLabel();
     }
 
-    // for debugging
+    /**
+     * Generates a string representation of the path, with all of its cells.
+     * This function is mainly used for debugging purposes.
+     *
+     * @return the string representation of the path
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Path with following cells: \n");

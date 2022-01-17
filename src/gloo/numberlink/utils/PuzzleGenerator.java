@@ -1,8 +1,9 @@
 package gloo.numberlink.utils;
 
 /**
- * This class is currently unused since the boards are pre-created and stored in the board folder.
- * We are considering generating the game board in run-time.
+ * This class is used for generating initial boards in run time.
+ * This class is not currently used because the boards are read directly from the boards folder by the BoardReader
+ * class.
  */
 public class PuzzleGenerator {
 

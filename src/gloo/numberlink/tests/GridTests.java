@@ -5,13 +5,14 @@ import gloo.numberlink.model.Grid;
 
 public class GridTests {
     public static void main(String[] args) {
-//        testNewPath();
+        System.out.println("\033[0;31m");
+        testPrintGrid();
     }
 
-//    public static void testPrintGrid() {
-//        Grid grid = new Grid();
-//        grid.printGrid();
-//    }
+    public static void testPrintGrid() {
+        Grid grid = new Grid(5);
+        grid.printGrid();
+    }
 
 //    public static void testNewPath() {
 //        Grid grid = new Grid();

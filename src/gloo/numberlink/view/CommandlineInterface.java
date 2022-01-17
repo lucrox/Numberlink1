@@ -34,17 +34,28 @@ public class CommandlineInterface {
     }
 
     /**
-     * Prints the current game-board.
+     * Prints the current game-board with highlighting.
      */
+    private void printGrid(int highlightRow, int highlightCol) {
+        controller.printGrid(highlightRow, highlightCol);
+    }
+
     private void printGrid() {
-        controller.printGrid();
+        printGrid(-1, -1);
     }
 
     public void runGame() {
         System.out.println("Welcome to NumberLink.");
         long startTime = System.currentTimeMillis();
         while (true) {
-            printGrid();
+            if (controller.hasCurrentPath()) {
+                int[] lastCellCoordinates = controller.getLastCellCoordinates();
+                int lastCellRow = lastCellCoordinates[0];
+                int lastCellColumn = lastCellCoordinates[1];
+                printGrid(lastCellRow, lastCellColumn);
+            } else {
+                printGrid();
+            }
             if (!controller.hasCurrentPath()) {
                 // When we don't have a current path, select a cell to start a new path
                 System.out.println("Please select a cell: ");

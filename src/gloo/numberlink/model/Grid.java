@@ -2,6 +2,7 @@ package gloo.numberlink.model;
 
 import gloo.numberlink.exception.InvalidParametersException;
 import gloo.numberlink.utils.BoardReader;
+import gloo.numberlink.utils.ConsoleColors;
 import gloo.numberlink.utils.PuzzleGenerator;
 
 public class Grid {
@@ -80,28 +81,63 @@ public class Grid {
 //        }
 //    }
 
-    public void printGrid() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        for (int row = 0; row < 2 * nbRows + 4; row++) {
-            System.out.print("-");
-        }
+
+    /**
+     * Prints the grid for the command line interface.
+     *
+     * @param highlightCol column of the cell to be highlighted
+     * @param highlightRow row of the cell to be highlighted
+     */
+    public void printGrid(int highlightRow, int highlightCol) {
+
+        ConsoleColors.setColor(ConsoleColors.RESET);
+
+        // Column indices
         System.out.println();
-        System.out.print("   ");
+        System.out.print("     ");
         for (int row = 0; row < nbRows; row++) {
-            System.out.print(row + " ");
+            System.out.print(row + "     ");
         }
+
+        // Upper border
         System.out.println();
+        System.out.print("  ");
+        for (int col = 0; col < nbCols; col++) {
+            System.out.print(col == 0 ? "┏━━━━━" : "┯━━━━━");
+        }
+        System.out.println("┓");
+
+
         for (int row = 0; row < nbRows; row++) {
             System.out.print(row + " ");
             for (int col = 0; col < nbCols; col++) {
-                System.out.print("|" + cells[row][col].getLabel());
+                System.out.print((col == 0 ? "┃  " : "│  "));
+                if (row == highlightRow && col == highlightCol) {
+                    ConsoleColors.setColor(ConsoleColors.YELLOW_BACKGROUND);
+                }
+                System.out.print(cells[row][col].getLabel());
+                if (row == highlightRow && col == highlightCol) {
+                    ConsoleColors.setColor(ConsoleColors.RESET);
+                }
+                System.out.print("  ");
             }
-            System.out.println("|");
+            System.out.println("┃");
+
+            System.out.print("  ");
+            for (int col = 0; col < nbCols; col++) {
+                if (row == nbRows - 1) {
+                    System.out.print(col == 0 ? "┗━━━━━" : "┷━━━━━");
+                } else {
+                    System.out.print(col == 0 ? "┠─────" : "┼─────");
+                }
+            }
+            System.out.println(row == nbCols - 1 ? "┛" : "┨");
         }
-        for (int row = 0; row < 2 * nbRows + 4; row++) {
-            System.out.print("-");
-        }
+    }
+
+    // without highlight
+    public void printGrid() {
+        printGrid(-1, -1);
     }
 
 
@@ -169,7 +205,7 @@ public class Grid {
      *
      * @param row the row index
      * @param col the column index
-     * @return the newly created path
+     * @return the newly created path if path creation was successful, null otherwise
      */
     public Path createNewPath(int row, int col) {
         return isCoordinatesValid(row, col) ? cells[row][col].createNewPath() : null;

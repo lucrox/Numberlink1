@@ -1,5 +1,6 @@
 package gloo.numberlink.control;
 
+import gloo.numberlink.model.Cell;
 import gloo.numberlink.model.Direction;
 import gloo.numberlink.model.Grid;
 import gloo.numberlink.model.Path;
@@ -17,24 +18,37 @@ public class Controller {
         grid = new Grid(size);
     }
 
-//    public Controller(int nbRows, int nbCols) {
-//        this.grid = new Grid();
-//    }
-
+    /**
+     * Determines whether there is an unfinished path the player is advancing on.
+     */
     public boolean hasCurrentPath() {
         return (currPath != null);
     }
 
+    /**
+     * Determines whether the row and col coordinates correspond to a valid cell coordinate in the grid.
+     *
+     * @param row the row coordinate
+     * @param col the column coordinate
+     * @return whether the coordinates are valid
+     */
     public boolean isCoordinatesValid(int row, int col) {
         return grid.isCoordinatesValid(row, col);
     }
 
+    /**
+     * Prints the grid in the command line interface with highlight.
+     */
+    public void printGrid(int highlightRow, int highlightCol) {
+        grid.printGrid(highlightRow, highlightCol);
+    }
+
     public void printGrid() {
-        grid.printGrid();
+        printGrid(-1, -1);
     }
 
     /**
-     * Starts a new path from the coordinates.
+     * Starts a new path from the chosen coordinates.
      *
      * @param row the row index
      * @param col the column index
@@ -62,4 +76,11 @@ public class Controller {
         }
         return grid.isFinished();
     }
+
+    // for highlight functions in the console
+    public int[] getLastCellCoordinates() {
+        Cell lastCell = currPath.getLastCell();
+        return grid.getCellCoordinates(lastCell);
+    }
+
 }
