@@ -47,6 +47,10 @@ public class Controller {
         printGrid(-1, -1);
     }
 
+    public String[][] getLabels() {
+        return grid.getLabels();
+    }
+
     /**
      * Starts a new path from the chosen coordinates.
      *

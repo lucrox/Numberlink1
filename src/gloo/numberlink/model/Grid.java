@@ -81,7 +81,20 @@ public class Grid {
 //        }
 //    }
 
-
+    /**
+     * Returns a matrix of Strings, each being the string representation of the cell (eg. 1, 2, 3, 4 or blank space).
+     *
+     * @return Labels of the cells
+     */
+    public String[][] getLabels() {
+        String[][] labelMatrix = new String[nbRows][nbCols];
+        for (int row = 0; row < nbRows; row++) {
+            for (int col = 0; col < nbCols; col++) {
+                labelMatrix[row][col] = cells[row][col].getLabel();
+            }
+        }
+        return labelMatrix;
+    }
     /**
      * Prints the grid for the command line interface.
      *
@@ -94,41 +107,41 @@ public class Grid {
 
         // Column indices
         System.out.println();
-        System.out.print("     ");
+        System.out.print("      ");
         for (int row = 0; row < nbRows; row++) {
-            System.out.print(row + "     ");
+            System.out.print(row + (row >= 10? "    " : "     "));
         }
 
         // Upper border
         System.out.println();
         System.out.print("  ");
         for (int col = 0; col < nbCols; col++) {
-            System.out.print(col == 0 ? "┏━━━━━" : "┯━━━━━");
+            System.out.print(col == 0 ? " ┏━━━━━" : "┯━━━━━");
         }
         System.out.println("┓");
 
 
         for (int row = 0; row < nbRows; row++) {
-            System.out.print(row + " ");
+            System.out.print(row + (row >= 10 ? "": " "));
             for (int col = 0; col < nbCols; col++) {
-                System.out.print((col == 0 ? "┃  " : "│  "));
+                System.out.print((col == 0 ? " ┃ " : "│ "));
                 if (row == highlightRow && col == highlightCol) {
                     ConsoleColors.setColor(ConsoleColors.YELLOW_BACKGROUND);
                 }
-                System.out.print(cells[row][col].getLabel());
+                System.out.print(" " + cells[row][col].getLabel() + " ");
                 if (row == highlightRow && col == highlightCol) {
                     ConsoleColors.setColor(ConsoleColors.RESET);
                 }
-                System.out.print("  ");
+                System.out.print(" ");
             }
             System.out.println("┃");
 
             System.out.print("  ");
             for (int col = 0; col < nbCols; col++) {
                 if (row == nbRows - 1) {
-                    System.out.print(col == 0 ? "┗━━━━━" : "┷━━━━━");
+                    System.out.print(col == 0 ? " ┗━━━━━" : "┷━━━━━");
                 } else {
-                    System.out.print(col == 0 ? "┠─────" : "┼─────");
+                    System.out.print(col == 0 ? " ┠─────" : "┼─────");
                 }
             }
             System.out.println(row == nbCols - 1 ? "┛" : "┨");
@@ -139,7 +152,6 @@ public class Grid {
     public void printGrid() {
         printGrid(-1, -1);
     }
-
 
     /**
      * Scans the cells matrix to find the coordinates of the cell.

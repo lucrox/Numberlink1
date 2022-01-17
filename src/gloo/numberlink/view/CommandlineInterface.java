@@ -4,6 +4,7 @@ import gloo.numberlink.control.Controller;
 import gloo.numberlink.exception.InvalidParametersException;
 import gloo.numberlink.model.Direction;
 import gloo.numberlink.utils.BoardReader;
+import gloo.numberlink.utils.ConsoleColors;
 
 import java.util.Scanner;
 
@@ -15,6 +16,10 @@ public class CommandlineInterface {
         scanner = new Scanner(System.in);
         int boardSize = inputBoardSize();
         controller = new Controller(boardSize);
+    }
+
+    private String[][] getLabels() {
+        return controller.getLabels();
     }
 
     /**
@@ -43,6 +48,8 @@ public class CommandlineInterface {
     private void printGrid() {
         printGrid(-1, -1);
     }
+
+
 
     public void runGame() {
         System.out.println("Welcome to NumberLink.");

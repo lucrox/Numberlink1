@@ -5,12 +5,11 @@ import gloo.numberlink.model.Grid;
 
 public class GridTests {
     public static void main(String[] args) {
-        System.out.println("\033[0;31m");
         testPrintGrid();
     }
 
     public static void testPrintGrid() {
-        Grid grid = new Grid(5);
+        Grid grid = new Grid(6);
         grid.printGrid();
     }
 
