@@ -1,7 +1,6 @@
 package gloo.numberlink.model;
 
 import gloo.numberlink.utils.BoardReader;
-import gloo.numberlink.utils.ConsoleColors;
 
 public class Grid {
     private final int nbRows, nbCols;
@@ -11,7 +10,6 @@ public class Grid {
      */
     private final Cell[][] cells;
 
-    // TODO: handle exception and remove the dirty fix
     public Grid(int size) {
         nbRows = size;
         nbCols = size;
@@ -22,7 +20,6 @@ public class Grid {
         try {
             board = BoardReader.readBoard(size);
         } catch (Exception ex) {
-            // dirty fix
             System.out.println("Problem reading the board.");
             board = new int[][]{{-1}};
         }
@@ -61,63 +58,6 @@ public class Grid {
             }
         }
         return labelMatrix;
-    }
-    /**
-     * Prints the grid for the command line interface.
-     *
-     * @param highlightCol column of the cell to be highlighted
-     * @param highlightRow row of the cell to be highlighted
-     */
-    public void printGrid(int highlightRow, int highlightCol) {
-
-        ConsoleColors.setColor(ConsoleColors.RESET);
-
-        // Column indices
-        System.out.println();
-        System.out.print("      ");
-        for (int row = 0; row < nbRows; row++) {
-            System.out.print(row + (row >= 10? "    " : "     "));
-        }
-
-        // Upper border
-        System.out.println();
-        System.out.print("  ");
-        for (int col = 0; col < nbCols; col++) {
-            System.out.print(col == 0 ? " ┏━━━━━" : "┯━━━━━");
-        }
-        System.out.println("┓");
-
-
-        for (int row = 0; row < nbRows; row++) {
-            System.out.print(row + (row >= 10 ? "": " "));
-            for (int col = 0; col < nbCols; col++) {
-                System.out.print((col == 0 ? " ┃ " : "│ "));
-                if (row == highlightRow && col == highlightCol) {
-                    ConsoleColors.setColor(ConsoleColors.YELLOW_BACKGROUND);
-                }
-                System.out.print(" " + cells[row][col].getLabel() + " ");
-                if (row == highlightRow && col == highlightCol) {
-                    ConsoleColors.setColor(ConsoleColors.RESET);
-                }
-                System.out.print(" ");
-            }
-            System.out.println("┃");
-
-            System.out.print("  ");
-            for (int col = 0; col < nbCols; col++) {
-                if (row == nbRows - 1) {
-                    System.out.print(col == 0 ? " ┗━━━━━" : "┷━━━━━");
-                } else {
-                    System.out.print(col == 0 ? " ┠─────" : "┼─────");
-                }
-            }
-            System.out.println(row == nbCols - 1 ? "┛" : "┨");
-        }
-    }
-
-    // without highlight
-    public void printGrid() {
-        printGrid(-1, -1);
     }
 
     /**
