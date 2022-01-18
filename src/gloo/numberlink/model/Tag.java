@@ -1,5 +1,7 @@
 package gloo.numberlink.model;
 
+import java.util.Objects;
+
 public class Tag {
 
     /**
@@ -9,6 +11,14 @@ public class Tag {
 
     public Tag(int label) {
         this.label = label;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+        Tag other = (Tag) obj;
+        return getLabel().equals(other.getLabel());
     }
 
     public String getLabel() {

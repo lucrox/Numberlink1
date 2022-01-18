@@ -68,12 +68,14 @@ public class Cell {
     /**
      * Returns a string representation of the coordinates and the label of the cell for debugging purposes.
      */
+    @Override
     public String toString() {
         int[] coordinates = grid.getCellCoordinates(this);
         int row = coordinates[0];
         int col = coordinates[1];
-        return String.format("Cell( row: %d, column: %d, label: %s)", row, col, getLabel());
+        return String.format("Cell{ %d, %d, label}", row, col, getLabel());
     }
+
 
     /**
      * Creates a new path starting from the current cell.
