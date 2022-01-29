@@ -107,7 +107,6 @@ public class CommandlineInterface {
 
     public void runGame() {
         System.out.println("Welcome to NumberLink.");
-        SwingUtilities.invokeLater(new GUIDisplayer(controller));
         long startTime = System.currentTimeMillis();
         while (true) {
             // Retrieve the labels of the cells for printing

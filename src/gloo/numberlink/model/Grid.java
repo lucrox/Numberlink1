@@ -149,4 +149,8 @@ public class Grid {
     public int getNbRows() {
         return nbRows;
     }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
 }

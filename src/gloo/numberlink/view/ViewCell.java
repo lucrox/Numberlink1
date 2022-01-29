@@ -2,11 +2,12 @@ package gloo.numberlink.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 import static gloo.numberlink.view.ColorCell.linkColorLabel;
 
 public class ViewCell extends JPanel {
-    private String label;
+    /*private String label;
     private Color color;
     private ViewGrid viewGrid;
     public ViewCell(String label,ViewGrid viewGrid){
@@ -24,8 +25,8 @@ public class ViewCell extends JPanel {
         int height = 900/nbRows;
         int x = coord[0]*width;
         int y = coord[1]*height;
-        System.out.println(x);
-        System.out.println(y);
+        System.out.println(Arrays.toString(coord));
+
 
 
         Color color = this.color;
@@ -40,5 +41,5 @@ public class ViewCell extends JPanel {
     }
     public Color getColor() {
         return this.color;
-    }
+    }*/
 }

@@ -50,8 +50,11 @@ public class Controller {
      */
     public boolean selectCell(int row, int col) {
         Path newPath = grid.createNewPath(row, col); // null if the grid failed to create a new path
-        if (newPath == null) return false;
+        if (newPath == null) {
+            return false;
+        }
         currPath = newPath;
+
         return true;
     }
 
@@ -70,6 +73,18 @@ public class Controller {
         }
         return grid.isFinished();
     }
+    public void continuePath(Direction dir){
+        if(this.hasCurrentPath()) {
+            System.out.println(dir);
+            boolean isGameFinished = this.action(dir);
+            if (isGameFinished) {
+
+                System.out.println("Congratulations, you won !");
+
+            }
+        }
+    }
+
 
     // for highlight functions in the console
     public int[] getLastCellCoordinates() {
@@ -77,11 +92,16 @@ public class Controller {
         return grid.getCellCoordinates(lastCell);
     }
 
+
     public int getNbCols(){
         return grid.getNbCols();
     }
     public int getNbRows(){
         return grid.getNbRows();
+    }
+
+    public Grid getGrid(){
+        return grid;
     }
 
 }

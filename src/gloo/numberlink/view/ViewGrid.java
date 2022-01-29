@@ -3,9 +3,13 @@ package gloo.numberlink.view;
 import gloo.numberlink.control.Controller;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.Arrays;
 
-public class ViewGrid extends JFrame {
-    private ViewCell[][] viewCells;
+import static gloo.numberlink.view.ColorCell.linkColorLabel;
+
+public class ViewGrid extends JPanel {
+
     private Controller controller;
 
 
@@ -15,37 +19,36 @@ public class ViewGrid extends JFrame {
         int nbRows = controller.getNbRows();
         int nbCols = controller.getNbCols();
         this.controller = controller;
-        viewCells = new ViewCell[nbRows][nbCols];
         String[][] labels = controller.getLabels();
-
-        for(int i=0; i<nbRows;i++){
-            for(int j=0;j<nbCols;j++){
-                viewCells[i][j] = new ViewCell(labels[i][j],this);
-                this.add(viewCells[i][j]);
-                repaint();
-
             }
-        }
-}
+    @Override
+    public void paint(Graphics g) {
 
-    public int getNbRows() {
-        return controller.getNbRows();
-    }
-
-    public int getNbCols() {
-        return controller.getNbCols();
-    }
-
-    public int[] getCoordinates(ViewCell viewCell) {
         int nbRows = controller.getNbRows();
         int nbCols = controller.getNbCols();
-        for (int row = 0; row <nbRows; row++) {
-            for (int col = 0; col < nbCols; col++) {
-                if (viewCells[row][col] == viewCell) {
-                    return new int[]{row, col};
+        int width = 900/nbCols;
+        int height = 900/nbRows;
+        String[][] labels = controller.getLabels();
+        for(int i=0; i<nbRows;i++){
+            for(int j=0;j<nbCols;j++){
+                String label = labels[i][j];
+
+
+                Color color = linkColorLabel(label);
+                g.setColor(color);
+                g.fillRect(j*height,i*width,width,height);
+                g.setColor(Color.BLACK);
+                if(controller.getGrid().getCells()[i][j].hasEnd()){
+                g.setFont(new Font("Arial", Font.BOLD, 18));
+                g.drawString(label,(j*height+height/2),(i*width+width/2));
                 }
+
+
             }
         }
-    return new int[]{-1,-1};
-    }
+        }
+
+
+
+
 }
