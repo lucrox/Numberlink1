@@ -1,11 +1,6 @@
 package gloo.numberlink.control;
 
 import gloo.numberlink.model.*;
-import gloo.numberlink.view.ColorCell;
-import gloo.numberlink.view.GUIDisplayer;
-import gloo.numberlink.view.ViewGrid;
-
-import java.awt.*;
 
 public class Controller {
     private final Grid grid;
