@@ -3,14 +3,14 @@ import gloo.numberlink.model.Grid;
 import gloo.numberlink.model.Path;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+//import static org.mockito.Mockito.*;
 
 public class TestCell {
 
     /**
      * An newly instantiated cell should be available for being added to paths.
      */
-    @Test
+    /*@Test
     void testAvailabilityGenericCell() {
         Grid grid = mock(Grid.class);
         Cell cell = new Cell(grid);
@@ -19,5 +19,5 @@ public class TestCell {
         Path path = mock(Path.class);
         Boolean isPathAccepted = cell.acceptPath(path); // The cell should be available.
         assertEquals(true, isPathAccepted);
-    }
+    }*/
 }

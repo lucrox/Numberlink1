@@ -142,4 +142,11 @@ public class Grid {
         return true;
     }
 
+    public int getNbCols() {
+        return nbCols;
+    }
+
+    public int getNbRows() {
+        return nbRows;
+    }
 }

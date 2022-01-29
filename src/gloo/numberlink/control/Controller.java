@@ -77,4 +77,11 @@ public class Controller {
         return grid.getCellCoordinates(lastCell);
     }
 
+    public int getNbCols(){
+        return grid.getNbCols();
+    }
+    public int getNbRows(){
+        return grid.getNbRows();
+    }
+
 }

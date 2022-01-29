@@ -5,6 +5,7 @@ import gloo.numberlink.model.Direction;
 import gloo.numberlink.utils.BoardReader;
 import gloo.numberlink.utils.ConsoleColors;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class CommandlineInterface {
@@ -106,6 +107,7 @@ public class CommandlineInterface {
 
     public void runGame() {
         System.out.println("Welcome to NumberLink.");
+        SwingUtilities.invokeLater(new GUIDisplayer(controller));
         long startTime = System.currentTimeMillis();
         while (true) {
             // Retrieve the labels of the cells for printing
