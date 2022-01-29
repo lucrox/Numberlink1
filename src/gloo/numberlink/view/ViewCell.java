@@ -10,10 +10,12 @@ import static java.lang.Integer.parseInt;
 
 public class ViewCell extends JButton implements ActionListener {
     private ViewGrid viewGrid;
-    private ColorCell colorCell;
+    private ColorCell colorCell = new ColorCell();
+    private Object monitor;
 
-    public ViewCell(ViewGrid grid){
-        this.viewGrid = grid;
+    public ViewCell(ViewGrid viewGrid){
+        this.viewGrid = viewGrid;
+        monitor = viewGrid.getMonitor();
         this.setForeground(Color.BLACK);
         this.setFont(new Font("Arial", Font.BOLD, 18));
         this.setEnabled(false);
@@ -27,21 +29,23 @@ public class ViewCell extends JButton implements ActionListener {
             this.setEnabled(true);
             this.setLabel(label);
             colorCell.setColor(label);
-            this.setBackground(colorCell.getColor());
+            this.setBackground(colorCell.setColor(label));
         }
 
 
     }
 
     public void chargePath(String label){
-        colorCell.setColor(label);
-        this.setBackground(colorCell.getColor());
+
+        this.setBackground(colorCell.setColor(label));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        viewGrid.selectCell(this);
+        synchronized (monitor) {
+            viewGrid.selectCell(this);
+            monitor.notify();
+        }
 
     }
 }

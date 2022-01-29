@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class Controller {
     private final Grid grid;
+    private Object monitor;
 
     /**
      * currPath indicates the current path the player is advancing on. If currPath is null, the player must select
@@ -15,7 +16,9 @@ public class Controller {
     private Path currPath;
 
     public Controller(int size){
+
         grid = new Grid(size);
+        monitor = new Object();
     }
 
     /**
@@ -87,6 +90,9 @@ public class Controller {
         return currPath.getLabel();
     }
 
+    public Object getMonitor(){
+        return monitor;
+    }
 
 
 }

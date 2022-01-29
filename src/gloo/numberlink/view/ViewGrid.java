@@ -11,6 +11,7 @@ import static java.lang.Integer.parseInt;
 public class ViewGrid extends JPanel {
     private ViewCell[][] viewCells;
     private Controller controller;
+    private Object monitor;
 
 
     public ViewGrid(Controller controller){
@@ -20,6 +21,13 @@ public class ViewGrid extends JPanel {
         int nbCols = controller.getNbCols();
         this.controller = controller;
         viewCells = new ViewCell[nbRows][nbCols];
+        for(int i=0; i<nbRows;i++){
+            for(int j=0;j<nbCols;j++){
+                viewCells[i][j] = new ViewCell(this);
+                this.add(viewCells[i][j]);
+            }
+        }
+        monitor = controller.getMonitor();
 
 
 
@@ -31,8 +39,9 @@ public class ViewGrid extends JPanel {
         for (int i = 0; i < nbRows; i++) {
 
             for (int j = 0; j < nbCols; j++) {
+
                 viewCells[i][j].chargeLabel(labels[i][j]);
-                this.add(viewCells[i][j]);
+
 
             }
         }
@@ -53,6 +62,9 @@ public class ViewGrid extends JPanel {
         viewCells[coord[0]][coord[1]].chargePath(label);
     }
 
+    public Object getMonitor() {
+        return controller.getMonitor();
     }
+}
 
 

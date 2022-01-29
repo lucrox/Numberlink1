@@ -10,16 +10,19 @@ import javax.swing.text.View;
 import java.awt.*;
 import java.util.Scanner;
 
-public class CommandlineInterface {
+public class CommandlineInterface extends Thread {
     private final Controller controller;
     private final Scanner scanner;
     private ViewGrid viewGrid;
+    private Object monitor;
+    private JFrame frame;
 
-    public CommandlineInterface() {
+    public CommandlineInterface(Controller controller, JFrame frame, ViewGrid viewGrid) {
         scanner = new Scanner(System.in);
-        int boardSize = inputBoardSize();
-        controller = new Controller(boardSize);
-        viewGrid = new ViewGrid(controller);
+        this.frame = frame;
+        this.controller = controller;
+        this.viewGrid = viewGrid;
+        monitor = controller.getMonitor();
     }
 
 
@@ -28,15 +31,7 @@ public class CommandlineInterface {
      *
      * @return board size
      */
-    private int inputBoardSize() {
-        System.out.println("Choose a board size from " + BoardReader.minBoardLength + " to " + BoardReader.maxBoardLength + ".");
-        try {
-            return Integer.parseInt(scanner.nextLine()); // board size
-        } catch (Exception ex) {
-            System.out.println("Invalid input, please try again");
-            return inputBoardSize();
-        }
-    }
+
 
     /**
      * Prints the grid for the command line interface.
@@ -48,7 +43,7 @@ public class CommandlineInterface {
 
         int nbRows = labels.length;
         int nbCols = labels[0].length;
-        SwingUtilities.invokeLater(new  GUIDisplayer(controller, viewGrid));
+        //SwingUtilities.invokeLater(new  GUIDisplayer(controller));
 
         // Reset console color
         //ConsoleColors.setColor(ConsoleColors.RESET);
@@ -101,8 +96,8 @@ public class CommandlineInterface {
         printGrid(labels, -1, -1);
     }
 
-
-    public void runGame() {
+    @Override
+    public void run() {
         System.out.println("Welcome to NumberLink.");
         long startTime = System.currentTimeMillis();
         while (true) {
@@ -116,12 +111,24 @@ public class CommandlineInterface {
                 printGrid(labels, lastCellRow, lastCellColumn);
             } else {
                 printGrid(labels);
+                System.out.println("on charge les labels");
+                viewGrid.chargeLabel(labels);
+                frame.repaint();
             }
-            if (!controller.hasCurrentPath()) {
+
+
+            synchronized (monitor){
+            while (!controller.hasCurrentPath()) {
                 // When we don't have a current path, select a cell to start a new path
                 System.out.println("Please select a cell: ");
+                try {
+                    monitor.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-            } else {
+            }
+            }
                 // Choose the next cell
                 System.out.println("Please select your next move:");
                 System.out.println("Choose from: UP, DOWN, LEFT, RIGHT, QUIT");
@@ -147,7 +154,8 @@ public class CommandlineInterface {
                     System.out.println("Total time spent on the puzzle: " + timeElapsedSeconds + " seconds.");
                     break;
                 }
-            }
+
+
         }
         System.out.println("Thanks for playing the game. Goodbye!");
     }
