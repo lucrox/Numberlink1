@@ -1,9 +1,9 @@
 package gloo.numberlink.control;
 
-import gloo.numberlink.model.Cell;
-import gloo.numberlink.model.Direction;
-import gloo.numberlink.model.Grid;
-import gloo.numberlink.model.Path;
+import gloo.numberlink.model.*;
+import gloo.numberlink.view.ColorCell;
+
+import java.awt.*;
 
 public class Controller {
     private final Grid grid;
@@ -75,5 +75,18 @@ public class Controller {
         Cell lastCell = currPath.getLastCell();
         return grid.getCellCoordinates(lastCell);
     }
+
+    public int getNbRows(){
+        return grid.getNbRows();
+    }
+    public int getNbCols(){
+        return grid.getNbCols();
+    }
+
+    public String getLabelCurrentPath(){
+        return currPath.getLabel();
+    }
+
+
 
 }

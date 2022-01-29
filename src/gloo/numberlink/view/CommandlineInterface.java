@@ -5,16 +5,21 @@ import gloo.numberlink.model.Direction;
 import gloo.numberlink.utils.BoardReader;
 import gloo.numberlink.utils.ConsoleColors;
 
+import javax.swing.*;
+import javax.swing.text.View;
+import java.awt.*;
 import java.util.Scanner;
 
 public class CommandlineInterface {
     private final Controller controller;
-    private final Scanner scanner; // for user input
+    private final Scanner scanner;
+    private ViewGrid viewGrid;
 
     public CommandlineInterface() {
         scanner = new Scanner(System.in);
         int boardSize = inputBoardSize();
         controller = new Controller(boardSize);
+        viewGrid = new ViewGrid(controller);
     }
 
 
@@ -43,12 +48,14 @@ public class CommandlineInterface {
 
         int nbRows = labels.length;
         int nbCols = labels[0].length;
+        SwingUtilities.invokeLater(new  GUIDisplayer(controller, viewGrid));
 
         // Reset console color
-        ConsoleColors.setColor(ConsoleColors.RESET);
+        //ConsoleColors.setColor(ConsoleColors.RESET);
+
 
         // Column indices
-        System.out.println();
+       /* System.out.println();
         System.out.print("      ");
         for (int row = 0; row < nbRows; row++) {
             System.out.print(row + (row >= 10 ? "    " : "     "));
@@ -87,7 +94,7 @@ public class CommandlineInterface {
                 }
             }
             System.out.println(row == nbCols - 1 ? "┛" : "┨");
-        }
+        }*/
     }
 
     public void printGrid(String[][] labels) {
@@ -103,6 +110,7 @@ public class CommandlineInterface {
             String[][] labels = controller.getLabels();
             if (controller.hasCurrentPath()) {
                 int[] lastCellCoordinates = controller.getLastCellCoordinates();
+                viewGrid.chargePath(lastCellCoordinates,controller.getLabelCurrentPath() );
                 int lastCellRow = lastCellCoordinates[0];
                 int lastCellColumn = lastCellCoordinates[1];
                 printGrid(labels, lastCellRow, lastCellColumn);
@@ -112,19 +120,7 @@ public class CommandlineInterface {
             if (!controller.hasCurrentPath()) {
                 // When we don't have a current path, select a cell to start a new path
                 System.out.println("Please select a cell: ");
-                System.out.print("row (type QUIT to quit): ");
-                String userInput = scanner.nextLine();
-                if (userInput.equalsIgnoreCase("QUIT")) break;
-                int row = Integer.parseInt(userInput);
-                System.out.print("column (type QUIT to quit): ");
-                userInput = scanner.nextLine();
-                if (userInput.equalsIgnoreCase("QUIT")) break;
-                int col = Integer.parseInt(userInput);
-                if (!controller.isCoordinatesValid(row, col)) {
-                    System.out.println("Invalid coordinates, please try again");
-                    continue;
-                }
-                controller.selectCell(row, col);
+
             } else {
                 // Choose the next cell
                 System.out.println("Please select your next move:");
@@ -155,4 +151,8 @@ public class CommandlineInterface {
         }
         System.out.println("Thanks for playing the game. Goodbye!");
     }
+
+
+
+
 }
