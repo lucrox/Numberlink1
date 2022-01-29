@@ -1,11 +1,10 @@
 package gloo.numberlink.utils;
 
-import gloo.numberlink.exception.InvalidParametersException;
-import gloo.numberlink.model.Cell;
-
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.security.InvalidParameterException;
 
 public class BoardReader {
     /**
@@ -30,22 +29,19 @@ public class BoardReader {
      * @param boardLength the length of the board side.
      * @return the deserialized 2D int[][] matrix representing the puzzle board
      */
-    public static int[][] readBoard(int boardLength) throws Exception {
+    public static int[][] readBoard(int boardLength) throws IOException, ClassNotFoundException {
         // board length validation
         if (!isBoardLengthValid(boardLength)) {
-            throw new InvalidParametersException
-                    (String.format("The board length should be between %d and %d", minBoardLength, maxBoardLength)
-                    );
+            throw new InvalidParameterException(
+                    String.format("The board length should be between %d and %d", minBoardLength, maxBoardLength)
+            );
         }
         // reading the board
-        try {
-            String path = boardFolderPath + String.format("/%d_%d_board.dat", boardLength, boardLength);
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream iis = new ObjectInputStream(fis);
-            return (int[][]) iis.readObject();
-        } catch (Exception e) {
-            throw new Exception("Error reading files.");
-        }
+
+        String path = boardFolderPath + String.format("/%d_%d_board.dat", boardLength, boardLength);
+        FileInputStream fis = new FileInputStream(path);
+        ObjectInputStream iis = new ObjectInputStream(fis);
+        return (int[][]) iis.readObject();
     }
 
     /**
@@ -56,8 +52,8 @@ public class BoardReader {
      */
     public static int getLabelCount(int[][] board) {
         int currMax = 0;
-        for (int[] row: board) {
-            for (int val: row) {
+        for (int[] row : board) {
+            for (int val : row) {
                 currMax = Math.max(currMax, val);
             }
         }

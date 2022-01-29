@@ -11,7 +11,16 @@ public class CommandlineInterface {
     private final Controller controller;
     private final Scanner scanner; // for user input
 
-    public CommandlineInterface() {
+    public static void main(String[] args) {
+        try {
+            CommandlineInterface cli = new CommandlineInterface();
+            cli.runGame();
+        } catch (Exception e) {
+            System.out.println("Error reading the game board. Check if board files are damaged.");
+        }
+    }
+
+    public CommandlineInterface() throws Exception {
         scanner = new Scanner(System.in);
         int boardSize = inputBoardSize();
         controller = new Controller(boardSize);

@@ -2,6 +2,8 @@ package gloo.numberlink.model;
 
 import gloo.numberlink.utils.BoardReader;
 
+import java.io.IOException;
+
 public class Grid {
     private final int nbRows, nbCols;
 
@@ -10,19 +12,14 @@ public class Grid {
      */
     private final Cell[][] cells;
 
-    public Grid(int size) {
+    public Grid(int size) throws IOException, ClassNotFoundException {
         nbRows = size;
         nbCols = size;
         cells = new Cell[nbRows][nbCols];
 
         // Read and deserialize the board file into integer matrix
         int[][] board;
-        try {
-            board = BoardReader.readBoard(size);
-        } catch (Exception ex) {
-            System.out.println("Problem reading the board.");
-            board = new int[][]{{-1}};
-        }
+        board = BoardReader.readBoard(size);
 
         // Initialize an array of tags
         int labelCount = BoardReader.getLabelCount(board);

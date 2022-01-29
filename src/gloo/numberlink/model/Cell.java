@@ -1,5 +1,6 @@
 package gloo.numberlink.model;
 
+
 public class Cell {
     /**
      * When the cell is initially non-empty, it has an end object associated with it.

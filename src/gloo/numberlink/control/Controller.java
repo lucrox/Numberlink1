@@ -5,6 +5,8 @@ import gloo.numberlink.model.Direction;
 import gloo.numberlink.model.Grid;
 import gloo.numberlink.model.Path;
 
+import java.io.IOException;
+
 public class Controller {
     private final Grid grid;
 
@@ -13,8 +15,7 @@ public class Controller {
      * a new cell to start a new path.
      */
     private Path currPath;
-
-    public Controller(int size){
+    public Controller(int size) throws Exception {
         grid = new Grid(size);
     }
 
