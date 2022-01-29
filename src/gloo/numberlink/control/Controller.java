@@ -2,12 +2,15 @@ package gloo.numberlink.control;
 
 import gloo.numberlink.model.*;
 import gloo.numberlink.view.ColorCell;
+import gloo.numberlink.view.GUIDisplayer;
+import gloo.numberlink.view.ViewGrid;
 
 import java.awt.*;
 
 public class Controller {
     private final Grid grid;
     private Object monitor;
+
 
     /**
      * currPath indicates the current path the player is advancing on. If currPath is null, the player must select
@@ -19,6 +22,7 @@ public class Controller {
 
         grid = new Grid(size);
         monitor = new Object();
+
     }
 
     /**

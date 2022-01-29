@@ -13,15 +13,15 @@ import java.util.Scanner;
 public class CommandlineInterface extends Thread {
     private final Controller controller;
     private final Scanner scanner;
-    private ViewGrid viewGrid;
+    private GUIDisplayer GUI;
     private Object monitor;
     private JFrame frame;
 
-    public CommandlineInterface(Controller controller, JFrame frame, ViewGrid viewGrid) {
+    public CommandlineInterface(Controller controller, JFrame frame) {
         scanner = new Scanner(System.in);
         this.frame = frame;
         this.controller = controller;
-        this.viewGrid = viewGrid;
+        GUI = new GUIDisplayer(controller,frame);
         monitor = controller.getMonitor();
     }
 
@@ -43,53 +43,7 @@ public class CommandlineInterface extends Thread {
 
         int nbRows = labels.length;
         int nbCols = labels[0].length;
-        //SwingUtilities.invokeLater(new  GUIDisplayer(controller));
 
-        // Reset console color
-        //ConsoleColors.setColor(ConsoleColors.RESET);
-
-
-        // Column indices
-       /* System.out.println();
-        System.out.print("      ");
-        for (int row = 0; row < nbRows; row++) {
-            System.out.print(row + (row >= 10 ? "    " : "     "));
-        }
-
-        // Upper border
-        System.out.println();
-        System.out.print("  ");
-        for (int col = 0; col < nbCols; col++) {
-            System.out.print(col == 0 ? " ┏━━━━━" : "┯━━━━━");
-        }
-        System.out.println("┓");
-
-
-        for (int row = 0; row < nbRows; row++) {
-            System.out.print(row + (row >= 10 ? "" : " "));
-            for (int col = 0; col < nbCols; col++) {
-                System.out.print((col == 0 ? " ┃ " : "│ "));
-                if (row == highlightRow && col == highlightCol) {
-                    ConsoleColors.setColor(ConsoleColors.YELLOW_BACKGROUND);
-                }
-                System.out.print(" " + labels[row][col] + " ");
-                if (row == highlightRow && col == highlightCol) {
-                    ConsoleColors.setColor(ConsoleColors.RESET);
-                }
-                System.out.print(" ");
-            }
-            System.out.println("┃");
-
-            System.out.print("  ");
-            for (int col = 0; col < nbCols; col++) {
-                if (row == nbRows - 1) {
-                    System.out.print(col == 0 ? " ┗━━━━━" : "┷━━━━━");
-                } else {
-                    System.out.print(col == 0 ? " ┠─────" : "┼─────");
-                }
-            }
-            System.out.println(row == nbCols - 1 ? "┛" : "┨");
-        }*/
     }
 
     public void printGrid(String[][] labels) {
@@ -98,6 +52,8 @@ public class CommandlineInterface extends Thread {
 
     @Override
     public void run() {
+        Thread display = new Thread(GUI);
+        display.start();
         System.out.println("Welcome to NumberLink.");
         long startTime = System.currentTimeMillis();
         while (true) {
@@ -105,15 +61,14 @@ public class CommandlineInterface extends Thread {
             String[][] labels = controller.getLabels();
             if (controller.hasCurrentPath()) {
                 int[] lastCellCoordinates = controller.getLastCellCoordinates();
-                viewGrid.chargePath(lastCellCoordinates,controller.getLabelCurrentPath() );
+                GUI.displayChoice(lastCellCoordinates, controller.getLabelCurrentPath());
                 int lastCellRow = lastCellCoordinates[0];
                 int lastCellColumn = lastCellCoordinates[1];
                 printGrid(labels, lastCellRow, lastCellColumn);
             } else {
                 printGrid(labels);
                 System.out.println("on charge les labels");
-                viewGrid.chargeLabel(labels);
-                frame.repaint();
+                GUI.chargeLabel(labels);
             }
 
 

@@ -20,11 +20,10 @@ public class Main {
 
         Controller controller = new Controller(boardSize);
         ViewGrid viewGrid = new ViewGrid(controller);
-        CommandlineInterface cli = new CommandlineInterface(controller, frame,viewGrid);
+        CommandlineInterface cli = new CommandlineInterface(controller, frame);
         cli.start();
-        GUIDisplayer GUI = new GUIDisplayer(controller,frame,viewGrid);
-        Thread display = new Thread(GUI);
-        display.start();
+
+
 
     }
 

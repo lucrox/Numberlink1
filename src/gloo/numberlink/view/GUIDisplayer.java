@@ -11,9 +11,9 @@ public class GUIDisplayer implements Runnable{
     private JFrame frame;
 
 
-    public GUIDisplayer(Controller controller, JFrame frame, ViewGrid viewGrid){
+    public GUIDisplayer(Controller controller, JFrame frame){
         this.controller = controller;
-        this.viewGrid = viewGrid;
+        this.viewGrid = new ViewGrid(controller);
         this.frame = frame;
     }
 
@@ -26,8 +26,18 @@ public class GUIDisplayer implements Runnable{
         frame.add(viewGrid);
         frame.pack();
         frame.setVisible(true);
-
         viewGrid.chargeLabel(controller.getLabels());
+        frame.repaint();
+
+    }
+
+    public void chargeLabel(String[][] labels){
+        viewGrid.chargeLabel(labels);
+        frame.repaint();
+    }
+
+    public void displayChoice(int[] coord, String label){
+        viewGrid.chargePath(coord,label);
         frame.repaint();
     }
 
