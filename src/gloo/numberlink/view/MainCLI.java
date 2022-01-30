@@ -5,23 +5,22 @@ import gloo.numberlink.model.Direction;
 import gloo.numberlink.utils.BoardReader;
 import gloo.numberlink.utils.ConsoleColors;
 
-import javax.swing.*;
 import java.util.Scanner;
 
-public class CommandlineInterface {
+public class MainCLI {
     private final Controller controller;
     private final Scanner scanner; // for user input
 
     public static void main(String[] args) {
         try {
-            CommandlineInterface cli = new CommandlineInterface();
+            MainCLI cli = new MainCLI();
             cli.runGame();
         } catch (Exception e) {
             System.out.println("Error reading the game board. Check if board files are damaged.");
         }
     }
 
-    public CommandlineInterface() throws Exception {
+    public MainCLI() throws Exception {
         scanner = new Scanner(System.in);
         int boardSize = inputBoardSize();
         controller = new Controller(boardSize);

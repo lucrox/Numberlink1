@@ -13,15 +13,7 @@ public class MainGUI {
         Controller controller = new Controller(inputBoardSize()); //Asks the User for the size of the board
       System.out.println("Welcome to NumberLink.");
         SwingUtilities.invokeLater(new GUIDisplayer(controller));
-        long startTime = System.currentTimeMillis();
-
-
-
     }
-
-
-
-
 
     private static int inputBoardSize() {
         Scanner scanner = new Scanner(System.in);
