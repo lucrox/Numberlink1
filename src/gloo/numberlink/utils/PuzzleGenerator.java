@@ -1,41 +1,34 @@
 package gloo.numberlink.utils;
 
 /**
- * This class is used for generating initial boards in run time.
- * This class is not currently used because the boards are read directly from the boards folder by the BoardReader
+ * This class was initially made for generating initial boards in run time.
+ * This class has been deprecated because the boards are read directly by the BoardReader from serialized files
  * class.
  */
+@Deprecated
 public class PuzzleGenerator {
 
-
     public static boolean hasZero(int[][] puzzle){
-        for (int l= 0;l< puzzle.length;l++) {
-            for (int c=0;c<puzzle[0].length;c++) {
-                if(puzzle[l][c]==0){
-                    return true;
-                }
+        for (int[] rowArray : puzzle) {
+            for (int val : rowArray) {
+                if (val == 0) return true;
             }
-
         }
         return false;
     }
-    public static int[][] remplissageMoinsUn(int[][] puzzle){
-
+    public static void remplissageMoinsUn(int[][] puzzle){
         for (int l= 0;l< puzzle.length;l++) {
             for (int c=0;c<puzzle[0].length;c++) {
                 if(puzzle[l][c]==0){
                     puzzle[l][c] =-1;
-
                 }
             }
-
         }
-
-        return puzzle;
     }
 
 
     //TODO: make puzzle generator generate random puzzles
+    @Deprecated
     public static int[][] generate(int nbRows,int nbColumns ) {
         /*return new int[][]{
                 {0, 1, 2, -1, -1, -1, 3, -1, -1},
@@ -53,7 +46,6 @@ public class PuzzleGenerator {
         int numeroChemin = 1;
 
         boolean pasFini = true;
-        boolean grilleInvalide = false;
 
 
         while(pasFini){
@@ -73,7 +65,6 @@ public class PuzzleGenerator {
             int linDepart = linCourante;
             int colDepart = colCourante;
             puzzle[linCourante][colCourante] = numeroChemin;
-            int compteur=1;
             boolean cheminEnCours = true;
             int essais = 0;
             while (cheminEnCours) {
@@ -89,7 +80,6 @@ public class PuzzleGenerator {
                         }
                         else{
                             puzzle[linCourante][colCourante] = numeroChemin;
-                            compteur++;
                         }
                     case 1:
                         colCourante--;
@@ -99,7 +89,6 @@ public class PuzzleGenerator {
                         }
                         else{
                             puzzle[linCourante][colCourante] = numeroChemin;
-                            compteur++;
                         }
                     case 2:
                         linCourante++;
@@ -109,7 +98,6 @@ public class PuzzleGenerator {
                         }
                         else{
                             puzzle[linCourante][colCourante] = numeroChemin;
-                            compteur++;
                         }
                     case 3:
                         colCourante++;
@@ -119,12 +107,10 @@ public class PuzzleGenerator {
                         }
                         else{
                             puzzle[linCourante][colCourante] = numeroChemin;
-                            compteur++;
                         }
                 }
 
             }
-            if(compteur<3){grilleInvalide=true;}
             if((linCourante == linDepart && colCourante==colDepart)){break;}
             puzzleReturn[linCourante][colCourante]=numeroChemin;
             puzzleReturn[linDepart][colDepart] = numeroChemin;
@@ -132,14 +118,7 @@ public class PuzzleGenerator {
             pasFini = hasZero(puzzle);
 
         }
-
-
-
-
-        if(hasZero(puzzle)||grilleInvalide){puzzle = generate(nbRows,nbColumns);}
-        puzzleReturn = remplissageMoinsUn(puzzleReturn);
+        remplissageMoinsUn(puzzleReturn);
         return puzzleReturn;
         }
-
-
     }
