@@ -74,7 +74,7 @@ public class Cell {
         int[] coordinates = grid.getCellCoordinates(this);
         int row = coordinates[0];
         int col = coordinates[1];
-        return String.format("Cell{ %d, %d, label}", row, col, getLabel());
+        return String.format("Cell{ %d, %d, %s}", row, col, getLabel());
     }
 
 

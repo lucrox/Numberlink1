@@ -2,8 +2,6 @@ package gloo.numberlink.model;
 
 import gloo.numberlink.utils.BoardReader;
 
-import java.io.IOException;
-
 public class Grid {
     private final int nbRows, nbCols;
 
