@@ -16,7 +16,7 @@ public class PuzzleGenerator {
         }
         return false;
     }
-    public static void remplissageMoinsUn(int[][] puzzle){
+    public static void fillMatrixMinusOne(int[][] puzzle){
         for (int l= 0;l< puzzle.length;l++) {
             for (int c=0;c<puzzle[0].length;c++) {
                 if(puzzle[l][c]==0){
@@ -43,7 +43,7 @@ public class PuzzleGenerator {
         };}}*/
         int[][] puzzle = new int[nbRows][nbColumns];
         int[][] puzzleReturn = new int[nbRows][nbColumns];
-        int numeroChemin = 1;
+        int pathNumber = 1;
 
         boolean pasFini = true;
 
@@ -53,72 +53,71 @@ public class PuzzleGenerator {
 
 
             boolean pasTrouve = true;
-            int colCourante = 0;
-            int linCourante= 0;
+            int currCol = 0;
+            int currRow= 0;
 
 
             while(pasTrouve){
-                colCourante = (int) (Math.random()*nbColumns);
-                linCourante = (int) (Math.random()*nbRows);
-                pasTrouve = puzzle[linCourante][colCourante] !=0;
+                currCol = (int) (Math.random()*nbColumns);
+                currRow = (int) (Math.random()*nbRows);
+                pasTrouve = puzzle[currRow][currCol] !=0;
             }
-            int linDepart = linCourante;
-            int colDepart = colCourante;
-            puzzle[linCourante][colCourante] = numeroChemin;
-            boolean cheminEnCours = true;
-            int essais = 0;
-            while (cheminEnCours) {
-
-                essais++;
+            int linDepart = currRow;
+            int colDepart = currCol;
+            puzzle[currRow][currCol] = pathNumber;
+            boolean currPath = true;
+            int nbTries = 0;
+            while (currPath) {
+                nbTries++;
                 int dir = (int) (Math.random()*4);
                 switch (dir){
                     case 0:
-                        linCourante--;
-                        if(linCourante<0 || puzzle[linCourante][colCourante]!=0){
-                            linCourante++;
-                            if(essais>10){ cheminEnCours = false;}
+                        currRow--;
+                        if(currRow<0 || puzzle[currRow][currCol]!=0){
+                            currRow++;
+                            if(nbTries>10){ currPath = false;}
                         }
                         else{
-                            puzzle[linCourante][colCourante] = numeroChemin;
+                            puzzle[currRow][currCol] = pathNumber;
                         }
                     case 1:
-                        colCourante--;
-                        if(colCourante<0 || puzzle[linCourante][colCourante]!=0){
-                            colCourante++;
-                            if(essais>10){ cheminEnCours = false;}
+                        currCol--;
+                        if(currCol<0 || puzzle[currRow][currCol]!=0){
+                            currCol++;
+                            if(nbTries>10){ currPath = false;}
                         }
                         else{
-                            puzzle[linCourante][colCourante] = numeroChemin;
+                            puzzle[currRow][currCol] = pathNumber;
                         }
                     case 2:
-                        linCourante++;
-                        if(linCourante>=nbRows || puzzle[linCourante][colCourante]!=0){
-                            linCourante--;
-                            if(essais>10){ cheminEnCours = false;}
+                        currRow++;
+                        if(currRow>=nbRows || puzzle[currRow][currCol]!=0){
+                            currRow--;
+                            if(nbTries>10){ currPath = false;}
                         }
                         else{
-                            puzzle[linCourante][colCourante] = numeroChemin;
+                            puzzle[currRow][currCol] = pathNumber;
                         }
                     case 3:
-                        colCourante++;
-                        if(colCourante>=nbColumns|| puzzle[linCourante][colCourante]!=0){
-                            colCourante--;
-                            if(essais>10){ cheminEnCours = false;}
+                        currCol++;
+                        if(currCol>=nbColumns|| puzzle[currRow][currCol]!=0){
+                            currCol--;
+                            if(nbTries>10){ currPath = false;}
                         }
                         else{
-                            puzzle[linCourante][colCourante] = numeroChemin;
+                            puzzle[currRow][currCol] = pathNumber;
                         }
                 }
 
             }
-            if((linCourante == linDepart && colCourante==colDepart)){break;}
-            puzzleReturn[linCourante][colCourante]=numeroChemin;
-            puzzleReturn[linDepart][colDepart] = numeroChemin;
-            numeroChemin++;
+            if((currRow == linDepart && currCol==colDepart)){break;}
+            puzzleReturn[currRow][currCol]=pathNumber;
+            puzzleReturn[linDepart][colDepart] = pathNumber;
+            pathNumber++;
             pasFini = hasZero(puzzle);
 
         }
-        remplissageMoinsUn(puzzleReturn);
+        fillMatrixMinusOne(puzzleReturn);
         return puzzleReturn;
         }
     }
