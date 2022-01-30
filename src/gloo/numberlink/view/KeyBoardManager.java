@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 
 public class KeyBoardManager implements KeyListener {
     private Controller controller;
-    GUIDisplayer GUI;
+    private GUIDisplayer GUI;
     public KeyBoardManager(Controller controller, GUIDisplayer GUI) {
         this.controller = controller;
         this.GUI = GUI;
