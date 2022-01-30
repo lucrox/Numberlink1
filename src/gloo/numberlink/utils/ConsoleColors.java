@@ -2,7 +2,7 @@ package gloo.numberlink.utils;
 
 /**
  * For printing in color in the console.
- * The code is by shakram02 from StackOverflow: "https://stackoverflow.com/a/45444716/16870318" .
+ * Credit: The code is by shakram02 from StackOverflow: "https://stackoverflow.com/a/45444716/16870318" .
  */
 public class ConsoleColors {
     // Reset
