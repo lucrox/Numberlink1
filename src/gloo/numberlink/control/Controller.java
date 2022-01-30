@@ -75,16 +75,15 @@ public class Controller {
     }
 
     /**
-     * This method is used
+     * This method is used for the GUI
      * @param dir
      */
     public void continuePath(Direction dir){
         if(this.hasCurrentPath()) {
             boolean isGameFinished = this.action(dir);
             if (isGameFinished) {
-                System.out.println("Congratulations, you won !");
-
-            }
+                System.out.println("Congratulations, you won !"); //really displays it however it is
+            }                                                      //drowned in other automatic prints
         }
     }
 
@@ -105,6 +104,10 @@ public class Controller {
 
     public boolean hasEnd(int row,int col){
         return grid.hasEnd(row, col);
+    }
+
+    public boolean  isFinished(){
+        return grid.isFinished();
     }
 
 }
