@@ -12,7 +12,7 @@ public class Grid {
      */
     private final Cell[][] cells;
 
-    public Grid(int size) throws IOException, ClassNotFoundException {
+    public Grid(int size) {
         nbRows = size;
         nbCols = size;
         cells = new Cell[nbRows][nbCols];

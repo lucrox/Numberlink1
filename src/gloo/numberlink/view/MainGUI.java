@@ -4,7 +4,6 @@ import gloo.numberlink.control.Controller;
 import gloo.numberlink.utils.BoardReader;
 
 import javax.swing.*;
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.Scanner;
 
 public class MainGUI {
