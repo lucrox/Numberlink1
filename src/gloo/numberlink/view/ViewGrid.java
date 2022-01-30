@@ -4,9 +4,8 @@ import gloo.numberlink.control.Controller;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
-import static gloo.numberlink.view.ColorCell.linkColorLabel;
+import static gloo.numberlink.utils.ColorCell.linkColorLabel;
 
 public class ViewGrid extends JPanel {
 
@@ -38,7 +37,7 @@ public class ViewGrid extends JPanel {
                 g.setColor(color);
                 g.fillRect(j*height,i*width,width,height);
                 g.setColor(Color.BLACK);
-                if(controller.getGrid().getCells()[i][j].hasEnd()){
+                if(controller.hasEnd(i,j)){
                 g.setFont(new Font("Arial", Font.BOLD, 18));
                 g.drawString(label,(j*height+height/2),(i*width+width/2));
                 }

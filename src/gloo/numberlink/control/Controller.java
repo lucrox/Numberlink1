@@ -73,12 +73,15 @@ public class Controller {
         }
         return grid.isFinished();
     }
+
+    /**
+     * This method is used
+     * @param dir
+     */
     public void continuePath(Direction dir){
         if(this.hasCurrentPath()) {
-            System.out.println(dir);
             boolean isGameFinished = this.action(dir);
             if (isGameFinished) {
-
                 System.out.println("Congratulations, you won !");
 
             }
@@ -100,8 +103,8 @@ public class Controller {
         return grid.getNbRows();
     }
 
-    public Grid getGrid(){
-        return grid;
+    public boolean hasEnd(int row,int col){
+        return grid.hasEnd(row, col);
     }
 
 }

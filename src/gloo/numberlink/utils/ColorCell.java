@@ -1,7 +1,10 @@
-package gloo.numberlink.view;
+package gloo.numberlink.utils;
 
 import java.awt.*;
 
+/**
+ * This class is here to defines the colors used for each label, it is an aesthetic choice changeable here
+ */
 public class ColorCell {
     public static Color linkColorLabel(String label) {
         System.out.println(label);

@@ -9,11 +9,8 @@ import java.util.Scanner;
 public class MainGUI {
 
     public static void main(String[] args) throws Exception {
-        Controller controller = new Controller(inputBoardSize());
-
-
-
-        System.out.println("Welcome to NumberLink.");
+        Controller controller = new Controller(inputBoardSize()); //Asks the User for the size of the board
+      System.out.println("Welcome to NumberLink.");
         SwingUtilities.invokeLater(new GUIDisplayer(controller));
         long startTime = System.currentTimeMillis();
 

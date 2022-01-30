@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 
 public class GUIDisplayer implements Runnable{
     private Controller controller;
+    private final int width = 900;
+    private final int height = 900;
     JFrame frame;
 
     public GUIDisplayer(Controller controller){
@@ -20,7 +22,7 @@ public class GUIDisplayer implements Runnable{
     @Override
     public void run() {
         ViewGrid viewGrid = new ViewGrid(controller);
-        frame.setPreferredSize(new Dimension(900, 900)); // permet d'indiquer la taille par défaut de la fenêtre
+        frame.setPreferredSize(new Dimension(width, height)); // permet d'indiquer la taille par défaut de la fenêtre
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(viewGrid);
         frame.setVisible(true);

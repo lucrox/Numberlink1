@@ -150,7 +150,7 @@ public class Grid {
         return nbRows;
     }
 
-    public Cell[][] getCells() {
-        return cells;
+    public boolean hasEnd(int row, int col) {
+        return cells[row][col].hasEnd();
     }
 }
