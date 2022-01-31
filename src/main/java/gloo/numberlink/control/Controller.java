@@ -103,9 +103,4 @@ public class Controller {
     public boolean hasEnd(int row,int col){
         return grid.hasEnd(row, col);
     }
-
-    public boolean  isFinished(){
-        return grid.isFinished();
-    }
-
 }
