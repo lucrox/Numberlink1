@@ -14,8 +14,8 @@ public class Controller {
      * a new cell to start a new path.
      */
     private Path currPath;
-    public Controller(int size) {
-        grid = new Grid(size);
+    public Controller(Grid grid) {
+        this.grid = grid;
     }
 
     /**
@@ -34,10 +34,6 @@ public class Controller {
      */
     public boolean isCoordinatesValid(int row, int col) {
         return grid.isCoordinatesValid(row, col);
-    }
-
-    public String[][] getLabels() {
-        return grid.getLabels();
     }
 
     /**
@@ -74,7 +70,7 @@ public class Controller {
 
     /**
      * This method is used for the GUI
-     * @param dir
+     * @param dir the direction in which to advance
      */
     public void continuePath(Direction dir){
         if(this.hasCurrentPath()) {
@@ -96,9 +92,7 @@ public class Controller {
     public int getNbCols(){
         return grid.getNbCols();
     }
-    public int getNbRows(){
-        return grid.getNbRows();
-    }
+    public int getNbRows(){ return grid.getNbRows(); }
 
     public boolean hasEnd(int row,int col){
         return grid.hasEnd(row, col);

@@ -81,7 +81,7 @@ public class Cell {
     /**
      * Creates a new path starting from the current cell.
      *
-     * @return the newly created path
+     * @return the newly created path, null if the cell doesn't have an end yet
      */
     public Path createNewPath() {
         if (!hasEnd()) return null; // a new path can only start from an end cell

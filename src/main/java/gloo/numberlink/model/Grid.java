@@ -2,7 +2,7 @@ package gloo.numberlink.model;
 
 import gloo.numberlink.utils.BoardReader;
 
-public class Grid {
+public class Grid implements BoardDataProvider{
     private final int nbRows, nbCols;
 
     /**

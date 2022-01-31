@@ -1,6 +1,12 @@
 package gloo.numberlink.model;
 
-public record End(Tag tag) {
+public class End {
+
+    private final Tag tag;
+
+    public End(Tag tag) {
+        this.tag = tag;
+    }
 
     public Tag getTag() {
         return tag;

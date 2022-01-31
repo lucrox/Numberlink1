@@ -1,7 +1,9 @@
 package gloo.numberlink.view;
 
 import gloo.numberlink.control.Controller;
+import gloo.numberlink.model.BoardDataProvider;
 import gloo.numberlink.model.Direction;
+import gloo.numberlink.model.Grid;
 import gloo.numberlink.utils.BoardReader;
 import gloo.numberlink.utils.ConsoleColors;
 
@@ -10,6 +12,7 @@ import java.util.Scanner;
 public class MainCLI {
     private final Controller controller;
     private final Scanner scanner; // for user input
+    private final BoardDataProvider boardData;
 
     public static void main(String[] args) {
         try {
@@ -20,10 +23,12 @@ public class MainCLI {
         }
     }
 
-    public MainCLI() throws Exception {
+    public MainCLI() {
         scanner = new Scanner(System.in);
         int boardSize = inputBoardSize();
-        controller = new Controller(boardSize);
+        Grid grid = new Grid(boardSize);
+        boardData = grid;
+        controller = new Controller(grid);
     }
 
 
@@ -109,7 +114,7 @@ public class MainCLI {
         long startTime = System.currentTimeMillis();
         while (true) {
             // Retrieve the labels of the cells for printing
-            String[][] labels = controller.getLabels();
+            String[][] labels = boardData.getLabels();
             if (controller.hasCurrentPath()) {
                 int[] lastCellCoordinates = controller.getLastCellCoordinates();
                 int lastCellRow = lastCellCoordinates[0];

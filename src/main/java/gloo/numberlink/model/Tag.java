@@ -1,9 +1,15 @@
 package gloo.numberlink.model;
 
-/**
- * Record for saving, comparing and providing information about the label of a cell.
- */
-public record Tag(int label) {
+public class Tag {
+
+    /**
+     * A label is uniquely identified by its label, ranging from 1 to the number of tags in the puzzle.
+     */
+    private final int label;
+
+    public Tag(int label) {
+        this.label = label;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -21,7 +27,7 @@ public record Tag(int label) {
         return getLabel();
     }
 
-    public Path createNewPath() {
+    public Path createNewPath(){
         return new Path(this);
     }
 }

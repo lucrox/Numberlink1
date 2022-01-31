@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseManager implements MouseListener {
-    private Controller controller;
+    private final Controller controller;
     private final int width_frame;
     private final int height_frame;
 
@@ -31,8 +31,6 @@ public class MouseManager implements MouseListener {
         int my = e.getY();
         controller.selectCell(controller.getNbCols()*my/width_frame,controller.getNbRows()*mx/height_frame);
         // on trouve sur quelle Cell on a cliqué et on essaye de la séléctionner, le controller s'occupe du reste
-
-
         }
 
 
